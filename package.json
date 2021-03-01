@@ -1,0 +1,34 @@
+{
+  "name": "sl-market",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node ace build --production",
+    "start": "node server.js",
+    "dev": "node ace serve --watch",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^3.0.6",
+    "adonis-preset-ts": "^2.0.0",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-adonis": "^1.2.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "pino-pretty": "^4.5.0",
+    "prettier": "^2.2.1",
+    "typescript": "~4.1",
+    "youch": "^2.1.1",
+    "youch-terminal": "^1.0.1"
+  },
+  "dependencies": {
+    "@adonisjs/core": "^5.0.4-preview-rc",
+    "@adonisjs/repl": "^1.1.6",
+    "@adonisjs/session": "^4.0.6",
+    "@adonisjs/view": "^3.1.0",
+    "proxy-addr": "^2.0.6",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.19"
+  }
+}
