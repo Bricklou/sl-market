@@ -1,3 +1,7 @@
+const { whenProd } = require('@craco/craco')
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
   style: {
     postcss: {
@@ -7,4 +11,22 @@ module.exports = {
       ],
     },
   },
+
+  webpack: {
+    configure: (webpackConfig, { env, paths }) => {
+      whenProd(() => {
+        paths.appBuild = path.resolve(__dirname, '../../public')
+        webpackConfig.output.path = paths.appBuild
+
+        webpackConfig.plugins = webpackConfig.plugins.map(plugin => {
+          if (plugin.constructor.name === 'HtmlWebpackPlugin') {
+            plugin.options.filename = path.resolve(__dirname, '../views/app.edge')
+          }
+          return plugin
+        })
+      })
+
+      return webpackConfig
+    }
+  }
 }

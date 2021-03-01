@@ -15,6 +15,7 @@ dependencies:
 devDependencies:
   '@tailwindcss/postcss7-compat': 2.0.3
   autoprefixer: 9.8.6
+  cross-env: 7.0.3
   http-proxy-middleware: 1.0.6
   postcss: 7.0.35
   sass: 1.32.8
@@ -3921,6 +3922,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg==
+  /cross-env/7.0.3:
+    dependencies:
+      cross-spawn: 7.0.3
+    dev: true
+    engines:
+      node: '>=10.14'
+      npm: '>=6'
+      yarn: '>=1'
+    hasBin: true
+    resolution:
+      integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==
   /cross-spawn/6.0.5:
     dependencies:
       nice-try: 1.0.5
@@ -3938,7 +3950,6 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-    dev: false
     engines:
       node: '>= 8'
     resolution:
@@ -6704,7 +6715,6 @@ packages:
     resolution:
       integrity: sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
   /isexe/2.0.0:
-    dev: false
     resolution:
       integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
   /isobject/2.1.0:
@@ -8619,7 +8629,6 @@ packages:
     resolution:
       integrity: sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
   /path-key/3.1.1:
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -10688,7 +10697,6 @@ packages:
   /shebang-command/2.0.0:
     dependencies:
       shebang-regex: 3.0.0
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -10700,7 +10708,6 @@ packages:
     resolution:
       integrity: sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
   /shebang-regex/3.0.0:
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -12135,7 +12142,6 @@ packages:
   /which/2.0.2:
     dependencies:
       isexe: 2.0.0
-    dev: false
     engines:
       node: '>= 8'
     hasBin: true
@@ -12452,6 +12458,7 @@ specifiers:
   '@types/react': ^17.0.2
   '@types/react-dom': ^17.0.1
   autoprefixer: ^9
+  cross-env: ^7.0.3
   http-proxy-middleware: ^1.0.6
   postcss: ^7
   react: ^17.0.1

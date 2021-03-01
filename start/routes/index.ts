@@ -20,4 +20,4 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.any('/:any?', 'ViewController.app').where('any', '^(?!api).*$')
+Route.any('/:any?', 'ViewsController.app').where('any', '^(?!api).*$')

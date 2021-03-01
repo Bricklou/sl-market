@@ -5,3 +5,7 @@ coverage
 .DS_STORE
 .env
 tmp
+
+resources/views/app.edge
+public
+!public/.gitkeep
