@@ -1,0 +1,43 @@
+#navbar {
+  @apply bg-blue-500 text-white sticky z-10;
+
+  .container {
+    @apply flex flex-col p-4;
+
+    @screen md {
+      @apply flex-row;
+    }
+
+    .logo-link {
+      @apply flex flex-row items-center justify-center mb-8;
+
+      @screen md {
+        @apply justify-start mb-0;
+      }
+
+      .logo-container {
+        @apply mr-4 h-16 w-16;
+      }
+
+      .title-container {
+        @apply uppercase font-bold text-2xl whitespace-nowrap;
+      }
+    }
+
+    .menubar {
+      @apply flex-1 flex flex-col justify-end;
+
+      @screen md {
+        @apply flex-row items-center;
+      }
+
+      a {
+        @apply ml-3 py-1 uppercase border-b-4 border-transparent transition-colors duration-75;
+
+        &:hover {
+          @apply border-white;
+        }
+      }
+    }
+  }
+}
