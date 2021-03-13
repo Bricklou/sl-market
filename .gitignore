@@ -7,5 +7,3 @@ coverage
 tmp
 
 resources/views/app.edge
-public
-!public/.gitkeep

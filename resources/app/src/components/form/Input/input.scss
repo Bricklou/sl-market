@@ -1,0 +1,23 @@
+label.label {
+  @apply text-gray-700;
+}
+
+.input-field {
+  @apply relative flex;
+
+  .icon {
+    @apply rounded-l-md inline-flex items-center px-3 border-t border-l bg-white border-b border-gray-300 text-gray-500 shadow-sm text-sm;
+  }
+
+  .input {
+    @apply rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base;
+
+    &:focus {
+      @apply outline-none ring-2 ring-blue-400 border-transparent;
+    }
+  }
+
+  &.with-icon .input {
+    @apply rounded-l-none;
+  }
+}

@@ -15,13 +15,7 @@
   },
   "preloads": [
     "./start/routes",
-    "./start/kernel",
-    {
-      "file": "./start/validationRules",
-      "environment": [
-        "web"
-      ]
-    }
+    "./start/kernel"
   ],
   "providers": [
     "./providers/AppProvider",

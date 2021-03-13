@@ -1,24 +1,20 @@
 const { whenProd } = require('@craco/craco')
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   style: {
     postcss: {
-      plugins: [
-        require('tailwindcss'),
-        require('autoprefixer'),
-      ],
+      plugins: [require('tailwindcss'), require('autoprefixer')],
     },
   },
 
   webpack: {
-    configure: (webpackConfig, { env, paths }) => {
+    configure: (webpackConfig, { paths }) => {
       whenProd(() => {
         paths.appBuild = path.resolve(__dirname, '../../public')
         webpackConfig.output.path = paths.appBuild
 
-        webpackConfig.plugins = webpackConfig.plugins.map(plugin => {
+        webpackConfig.plugins = webpackConfig.plugins.map((plugin) => {
           if (plugin.constructor.name === 'HtmlWebpackPlugin') {
             plugin.options.filename = path.resolve(__dirname, '../views/app.edge')
           }
@@ -27,6 +23,6 @@ module.exports = {
       })
 
       return webpackConfig
-    }
-  }
+    },
+  },
 }

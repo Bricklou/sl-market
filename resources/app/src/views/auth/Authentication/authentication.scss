@@ -1,0 +1,17 @@
+#authentication {
+  @apply flex h-full justify-center items-center bg-blue-500;
+
+  .box {
+    @apply rounded bg-gray-100 px-8 py-8 shadow-md mx-2;
+
+    width: 32rem;
+
+    .error-title {
+      @apply uppercase text-xl font-bold mb-8;
+    }
+
+    .errors p {
+      @apply mx-4 leading-none;
+    }
+  }
+}

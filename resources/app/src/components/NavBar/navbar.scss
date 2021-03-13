@@ -1,7 +1,9 @@
+@import '../base/Button/button.scss';
+
 #navbar {
   @apply bg-blue-500 text-white sticky z-10;
 
-  .container {
+  .nav-container {
     @apply flex flex-col p-4;
 
     @screen md {
@@ -31,12 +33,20 @@
         @apply flex-row items-center;
       }
 
-      a {
+      a, button {
         @apply ml-3 py-1 uppercase border-b-4 border-transparent transition-colors duration-75;
 
-        &:hover {
+        &:hover,
+        &.active {
           @apply border-white;
         }
+      }
+
+      .discord-btn {
+        @extend .button;
+
+        @apply w-auto #{!important};
+        @apply ml-3 w-auto mb-2 uppercase border-none py-2;
       }
     }
   }
