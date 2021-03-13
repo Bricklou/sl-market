@@ -22,4 +22,32 @@ export default Env.rules({
   CACHE_VIEWS: Env.schema.boolean(),
   SESSION_DRIVER: Env.schema.string(),
   NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+
+  DISCORD_ID: Env.schema.string(),
+  DISCORD_SECRET: Env.schema.string(),
+  DISCORD_REDIRECT_URI: Env.schema.string(),
+
+  MYSQL_HOST: Env.schema.string({ format: 'host' }),
+  MYSQL_PORT: Env.schema.number(),
+  MYSQL_USER: Env.schema.string(),
+  MYSQL_PASSWORD: Env.schema.string.optional(),
+  MYSQL_DB_NAME: Env.schema.string(),
+
+  PG_HOST: Env.schema.string({ format: 'host' }),
+  PG_PORT: Env.schema.number(),
+  PG_USER: Env.schema.string(),
+  PG_PASSWORD: Env.schema.string.optional(),
+  PG_DB_NAME: Env.schema.string(),
+
+  MSSQL_SERVER: Env.schema.string({ format: 'host' }),
+  MSSQL_PORT: Env.schema.number(),
+  MSSQL_USER: Env.schema.string(),
+  MSSQL_PASSWORD: Env.schema.string.optional(),
+  MSSQL_DB_NAME: Env.schema.string(),
+
+  ORACLE_HOST: Env.schema.string({ format: 'host' }),
+  ORACLE_PORT: Env.schema.number(),
+  ORACLE_USER: Env.schema.string(),
+  ORACLE_PASSWORD: Env.schema.string.optional(),
+  ORACLE_DB_NAME: Env.schema.string(),
 })
