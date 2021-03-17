@@ -22,7 +22,6 @@ type AppRouterProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToP
 
 class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
   private silentAuth: GuardFunction = async (to, from, next) => {
-    console.log('silentAuth')
     try {
       const response = await auth.refresh()
       this.props.login(response.data)

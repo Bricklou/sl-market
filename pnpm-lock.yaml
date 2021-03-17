@@ -38,7 +38,7 @@ packages:
       '@poppinss/prompts': 1.2.0
       '@poppinss/utils': 2.5.10
       fs-extra: 9.1.0
-      getopts: 2.3.0
+      getopts: 2.2.5
       leven: 3.1.0
       mustache: 4.1.0
       pluralize: 8.0.0
@@ -116,7 +116,7 @@ packages:
       bytes: 3.1.0
       cuid: 2.1.8
       end-of-stream: 1.4.4
-      file-type: 16.2.0
+      file-type: 16.3.0
       fs-extra: 9.1.0
       media-typer: 1.1.0
       multiparty: 4.2.2
@@ -311,7 +311,7 @@ packages:
       cp-file: 9.0.0
       fs-extra: 9.1.0
       marked: 1.2.9
-      marked-terminal: 4.1.0_marked@1.2.9
+      marked-terminal: 4.1.1_marked@1.2.9
       mrm-core: 4.7.0
       mustache: 4.1.0
       open: 7.4.2
@@ -326,7 +326,7 @@ packages:
       '@adonisjs/bodyparser': 5.1.0_686ec7b5e0be17141fbb53cf19a9db94
       '@adonisjs/http-server': 4.0.9_@adonisjs+application@3.0.21
       '@poppinss/utils': 2.5.10
-      '@types/luxon': 1.26.1
+      '@types/luxon': 1.26.2
       '@types/validator': 13.1.3
       luxon: 1.26.0
       normalize-url: 5.3.0
@@ -587,10 +587,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==
-  /@types/luxon/1.26.1:
+  /@types/luxon/1.26.2:
     dev: false
     resolution:
-      integrity: sha512-VW+JT7SDiSKjQss7iX/3bB8CUwSqzhKuW8EcyhzFTb/mwbIkcm92cPmok5FDWYz5TskB/tWFK/mn2ByHCf44AQ==
+      integrity: sha512-2pvzy4LuxBMBBLAbml6PDcJPiIeZQ0Hqj3PE31IxkNI250qeoRMDovTrHXeDkIL4auvtarSdpTkLHs+st43EYQ==
   /@types/minimatch/3.0.3:
     dev: true
     resolution:
@@ -1357,14 +1357,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==
-  /cli-table/0.3.5:
+  /cli-table/0.3.6:
     dependencies:
       colors: 1.0.3
     dev: true
     engines:
       node: '>= 0.2.0'
     resolution:
-      integrity: sha512-7uo2+RMNQUZ13M199udxqwk1qxTOS53EUak4gmu/aioUpdH5RvBz0JkJslcWz6ABKedZNqXXzikMZgHh+qF16A==
+      integrity: sha512-ZkNZbnZjKERTY5NwC2SeMeLeifSPq/pubeRoTpdr3WchLlnZg6hEgvHkK5zL7KNFdd9PmHN8lxrENUwI3cE8vQ==
   /cli-table3/0.6.0:
     dependencies:
       object-assign: 4.1.1
@@ -2149,7 +2149,7 @@ packages:
       node: ^10.12.0 || >=12.0.0
     resolution:
       integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==
-  /file-type/16.2.0:
+  /file-type/16.3.0:
     dependencies:
       readable-web-to-node-stream: 3.0.1
       strtok3: 6.0.8
@@ -2159,7 +2159,7 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-1Wwww3mmZCMmLjBfslCluwt2mxH80GsAXYrvPnfQ42G1EGWag336kB1iyCgyn7UXiKY3cJrNykXPrCwA7xb5Ag==
+      integrity: sha512-ZA0hV64611vJT42ltw0T9IDwHApQuxRdrmQZWTeDmeAUtZBBVSQW3nSQqhhW1cAgpXgqcJvm410BYHXJQ9AymA==
   /fill-range/4.0.0:
     dependencies:
       extend-shallow: 2.0.1
@@ -2419,10 +2419,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-9jb7AW5p3in+IiJWhQiZmmwkpLaR/ccTWdWQCtZM66HJcHHLegowh4q4tSD7gouUyeNvFWRavfK9GXosQHDpFA==
-  /getopts/2.3.0:
-    dev: false
-    resolution:
-      integrity: sha512-5eDf9fuSXwxBL6q5HX+dhDj+dslFGWzU5thZ9kNKUkcPtaPdatmUFKwHFrLb/uf/WpA4BHET+AX3Scl56cAjpA==
   /getpass/0.1.7:
     dependencies:
       assert-plus: 1.0.0
@@ -3318,20 +3314,20 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
-  /marked-terminal/4.1.0_marked@1.2.9:
+  /marked-terminal/4.1.1_marked@1.2.9:
     dependencies:
       ansi-escapes: 4.3.1
       cardinal: 2.1.1
       chalk: 4.1.0
-      cli-table: 0.3.5
+      cli-table: 0.3.6
       marked: 1.2.9
       node-emoji: 1.10.0
       supports-hyperlinks: 2.1.0
     dev: true
     peerDependencies:
-      marked: '>=0.4.0 <2.0.0'
+      marked: ^1.0.0 || ^2.0.0
     resolution:
-      integrity: sha512-5KllfAOW02WS6hLRQ7cNvGOxvKW1BKuXELH4EtbWfyWgxQhROoMxEvuQ/3fTgkNjledR0J48F4HbapvYp1zWkQ==
+      integrity: sha512-t7Mdf6T3PvOEyN01c3tYxDzhyKZ8xnkp8Rs6Fohno63L/0pFTJ5Qtwto2AQVuDtbQiWzD+4E5AAu1Z2iLc8miQ==
   /marked/1.2.9:
     dev: true
     engines:

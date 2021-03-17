@@ -15,11 +15,23 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = { logout }
 
+type NavBarState = {
+  displayMenu: boolean
+}
 type NavBarProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   RouteComponentProps
 
-class NavBar extends Component<NavBarProps> {
+class NavBar extends Component<NavBarProps, NavBarState> {
+  private dropdownMenu?: HTMLUListElement | null
+
+  constructor(props: NavBarProps) {
+    super(props)
+    this.state = {
+      displayMenu: false,
+    }
+  }
+
   private async logout(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
 
@@ -34,9 +46,30 @@ class NavBar extends Component<NavBarProps> {
     this.props.history.push('/')
   }
 
+  get userAvatar() {
+    if (this.props.user) {
+      return `https://cdn.discordapp.com/avatars/${this.props.user.id}/${this.props.user.avatar}.png`
+    }
+    return ''
+  }
+
   private showAuthButton() {
     if (this.props.isAuthenticated) {
-      return <button onClick={this.logout.bind(this)}>Déconnexion</button>
+      return (
+        <div className="navbar-dropdown">
+          <span>
+            <img className="avatar" src={this.userAvatar} alt="" />
+            {this.props.user!.username}
+            <i className="fas fa-caret-down"></i>
+          </span>
+
+          <ul className="dropdown" ref={(element) => (this.dropdownMenu = element)}>
+            <li>
+              <button onClick={this.logout.bind(this)}>Déconnexion</button>
+            </li>
+          </ul>
+        </div>
+      )
     } else {
       return (
         <a href={process.env.REACT_APP_DISCORD_OAUTH2_LINK} className="discord-btn button">

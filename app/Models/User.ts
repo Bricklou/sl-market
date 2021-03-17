@@ -2,8 +2,8 @@ import { DateTime } from 'luxon'
 import { column, BaseModel } from '@ioc:Adonis/Lucid/Orm'
 
 export default class User extends BaseModel {
-  @column({ isPrimary: true })
-  public id: number
+  @column({ isPrimary: true, serialize: (value: bigint) => BigInt(value).toString() })
+  public id: bigint
 
   @column()
   public username: string

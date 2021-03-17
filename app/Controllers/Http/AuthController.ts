@@ -43,7 +43,6 @@ export default class AuthController {
     let discordUser
     try {
       discordUser = await this.oauth.getUser(accessToken)
-      discordUser.id = Number.parseInt(discordUser.id)
     } catch (error) {
       return response.badRequest('Discord user not valid')
     }
@@ -61,15 +60,18 @@ export default class AuthController {
     }
 
     try {
-      await auth.loginViaId(user.id)
+      await auth.loginViaId(user.id.toString())
       auth.user!.lastLogin = DateTime.now()
+      auth.user!.username = discordUser.username
+      auth.user!.avatar = discordUser.avatar
+      auth.user!.email = discordUser.email
       await auth.user!.save()
     } catch (error) {
       console.error(error)
       return response.internalServerError('')
     }
 
-    return response.json(auth.user)
+    return response.json(auth.user?.serialize())
   }
 
   public async logout({ auth, response }: HttpContextContract) {
@@ -81,13 +83,14 @@ export default class AuthController {
     try {
       await auth.authenticate()
       if (auth.user) {
-        return response.ok(auth.user)
+        console.log(auth.user.serialize())
+        return response.ok(auth.user.serialize())
       }
     } catch (_) {}
     return response.unauthorized({})
   }
 
   public async get({ auth, response }: HttpContextContract) {
-    return response.ok(auth.user)
+    return response.ok(auth.user?.serialize())
   }
 }
