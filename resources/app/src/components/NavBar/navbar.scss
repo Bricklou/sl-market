@@ -1,7 +1,9 @@
+@import '../base/Button/button.scss';
+
 #navbar {
   @apply bg-blue-500 text-white sticky z-10;
 
-  .container {
+  .nav-container {
     @apply flex flex-col p-4;
 
     @screen md {
@@ -31,12 +33,59 @@
         @apply flex-row items-center;
       }
 
-      a {
+      a, button {
         @apply ml-3 py-1 uppercase border-b-4 border-transparent transition-colors duration-75;
 
-        &:hover {
+        &:hover,
+        &.active {
           @apply border-white;
         }
+      }
+
+      .discord-btn {
+        @extend .button;
+
+        @apply w-auto #{!important};
+        @apply ml-3 w-auto mb-2 uppercase border-none py-2;
+      }
+    }
+
+    .navbar-dropdown {
+      @apply relative ml-3 py-1 uppercase border-b-4 border-transparent cursor-pointer;
+
+      span {
+        @apply border-none;
+
+        &:focus {
+          @apply outline-none;
+        }
+
+        .avatar {
+          @apply rounded-full w-8 h-8 inline-block mx-2;
+        }
+
+        i {
+          @apply ml-2;
+        }
+      }
+
+      .dropdown {
+        @apply absolute bg-white shadow rounded-sm right-0 top-0 mt-10 hidden;
+
+        li {
+          @apply text-blue-500 px-4 py-2 list-none;
+          &:hover {
+            @apply bg-gray-200;
+          }
+
+          button {
+            @apply m-0 border-none;
+          }
+        }
+      }
+
+      &:hover .dropdown {
+        @apply block;
       }
     }
   }

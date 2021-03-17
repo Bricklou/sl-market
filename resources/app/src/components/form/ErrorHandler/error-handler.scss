@@ -1,0 +1,9 @@
+.error {
+  input {
+    @apply ring-2 ring-red-500 border-transparent;
+  }
+
+  .error-msg {
+    @apply italic text-red-500 block text-sm ml-10;
+  }
+}

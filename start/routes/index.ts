@@ -21,3 +21,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.any('/:any?', 'ViewsController.app').where('any', '^(?!api).*$')
+
+Route.group(() => {
+  require('./auth')
+}).prefix('/api')
+
+Route.any('*', async ({ response }) => response.notFound({}))

@@ -1,0 +1,35 @@
+button.button, a.button {
+  @apply py-2 px-4 bg-blue-500 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md rounded-lg;
+
+  &:hover {
+    @apply bg-blue-400;
+  }
+
+  &:focus {
+    @apply outline-none;
+  }
+
+  i {
+    @apply mr-2;
+  }
+
+  .loading-icon {
+    @apply animate-spin;
+  }
+
+  .error {
+    @apply text-red-500 italic;
+  }
+
+  &:disabled {
+    @apply bg-blue-300 cursor-default;
+  }
+
+  &.discord-btn {
+    @apply bg-white text-discord;
+
+    &:hover {
+      @apply bg-gray-200;
+    }
+  }
+}
