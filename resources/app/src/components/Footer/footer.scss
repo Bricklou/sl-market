@@ -1,0 +1,38 @@
+#footer {
+  @apply bg-gray-300;
+  .footer-content {
+    @apply h-52 flex flex-row max-w-screen-xl mx-auto;
+
+    article {
+      @apply p-4 flex-1;
+
+      .column-title {
+        @apply text-gray-600 uppercase tracking-wide mb-4 text-lg;
+      }
+
+      li {
+        @apply mb-2;
+
+        a.button {
+          @apply w-auto mx-4 block max-w-md;
+        }
+      }
+    }
+
+    .github-button {
+      @apply bg-white text-black;
+
+      &:hover {
+        @apply bg-gray-200;
+      }
+    }
+  }
+
+  .footer-bottom {
+    @apply h-10 border-t border-blue-400 flex justify-end align-middle px-4 text-gray-600 uppercase;
+
+    span {
+      @apply my-auto;
+    }
+  }
+}

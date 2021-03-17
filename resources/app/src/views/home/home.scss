@@ -1,0 +1,17 @@
+#home {
+  .banner {
+    @apply p-20 mx-auto text-center bg-blue-500;
+
+    .title {
+      @apply uppercase font-sans text-3xl mb-12 text-white;
+
+      @screen md {
+        @apply text-4xl;
+      }
+
+      .discord-name {
+        @apply text-blue-200 font-semibold;
+      }
+    }
+  }
+}

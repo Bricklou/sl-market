@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-import './App.css'
+import './app.scss'
+import Footer from './components/Footer/Footer'
 import NavBar from './components/NavBar/NavBar'
 import Main from './routes'
 
@@ -10,6 +11,7 @@ class App extends Component {
       <BrowserRouter>
         <NavBar />
         <Route component={Main} />
+        <Footer />
       </BrowserRouter>
     )
   }

@@ -79,12 +79,12 @@ class Authentication extends Component<
 
   render() {
     return (
-      <div id="authentication">
+      <main id="authentication">
         <div className="box">
           {console.log(this.state.errors)}
           {this.state.errors.length > 0 ? this.showError() : this.showLoading()}
         </div>
-      </div>
+      </main>
     )
   }
 }

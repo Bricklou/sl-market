@@ -1,8 +1,9 @@
-button.button, a.button {
+button.button,
+a.button {
   @apply py-2 px-4 bg-blue-500 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md rounded-lg;
 
   &:hover {
-    @apply bg-blue-400;
+    @apply bg-blue-400 cursor-pointer;
   }
 
   &:focus {
@@ -30,6 +31,14 @@ button.button, a.button {
 
     &:hover {
       @apply bg-gray-200;
+    }
+  }
+
+  &.discord-btn-invert {
+    @apply bg-discord text-white;
+
+    &:hover {
+      @apply bg-discord-light;
     }
   }
 }

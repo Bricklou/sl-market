@@ -4,9 +4,9 @@ import Loading from '../../../components/Loading/Loading'
 class LoadingView extends Component {
   render() {
     return (
-      <div>
+      <main>
         <Loading />
-      </div>
+      </main>
     )
   }
 }

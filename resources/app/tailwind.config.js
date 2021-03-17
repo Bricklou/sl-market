@@ -7,6 +7,7 @@ module.exports = {
         discord: {
           DEFAULT: '#7289da',
           gray: '#2C2F33',
+          light: '#8ea1e1',
         },
       },
     },
