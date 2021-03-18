@@ -13,6 +13,7 @@ interface UserInfo {
   email: string
   avatar: string
   lastLogin: Date
+  permissions: string[]
 }
 
 interface UserState {
@@ -41,6 +42,7 @@ export function userReducer(state = initialState, actions: UserAction): UserStat
           email: actions.payload.email,
           avatar: actions.payload.avatar,
           lastLogin: actions.payload.lastLogin,
+          permissions: actions.payload.permissions,
         },
         isAuthenticated: true,
       }

@@ -4,6 +4,8 @@ import User from 'App/Models/User'
 import Env from '@ioc:Adonis/Core/Env'
 import DiscordOAuth2 from 'discord-oauth2'
 import { DateTime } from 'luxon'
+import Permission from 'App/Models/Permission'
+import flattenDeep from 'lodash/flattenDeep'
 
 export default class AuthController {
   private oauth!: DiscordOAuth2
@@ -71,7 +73,16 @@ export default class AuthController {
       return response.internalServerError('')
     }
 
-    return response.json(auth.user)
+    if (auth.user) {
+      return response.json({
+        id: auth.user.id,
+        username: auth.user.username,
+        email: auth.user.email,
+        avatar: auth.user.avatar,
+        permissions: (await auth.user.getPermissions()).map((perm) => perm.slug).sort(),
+      })
+    }
+    return response.unauthorized({})
   }
 
   public async logout({ auth, response }: HttpContextContract) {
@@ -83,13 +94,36 @@ export default class AuthController {
     try {
       await auth.authenticate()
       if (auth.user) {
-        return response.ok(auth.user)
+        await auth.user.preload('roles', async (query) => {
+          await query.preload('permissions')
+        })
+
+        return response.json({
+          id: auth.user.id,
+          username: auth.user.username,
+          email: auth.user.email,
+          avatar: auth.user.avatar,
+          permissions: (await auth.user.getPermissions()).map((perm) => perm.slug).sort(),
+        })
       }
     } catch (_) {}
     return response.unauthorized({})
   }
 
   public async get({ auth, response }: HttpContextContract) {
-    return response.ok(auth.user)
+    if (auth.user) {
+      await auth.user.preload('roles', async (query) => {
+        await query.preload('permissions')
+      })
+
+      return response.json({
+        id: auth.user.id,
+        username: auth.user.username,
+        email: auth.user.email,
+        avatar: auth.user.avatar,
+        permissions: (await auth.user.getPermissions()).map((perm) => perm.slug).sort(),
+      })
+    }
+    return response.unauthorized({})
   }
 }

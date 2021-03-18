@@ -33,7 +33,8 @@
         @apply flex-row items-center;
       }
 
-      a, button {
+      a,
+      button {
         @apply ml-3 py-1 uppercase border-b-4 border-transparent transition-colors duration-75;
 
         &:hover,
@@ -78,8 +79,9 @@
             @apply bg-gray-200;
           }
 
+          a,
           button {
-            @apply m-0 border-none;
+            @apply m-0 border-none leading-6 inline-block;
           }
         }
       }

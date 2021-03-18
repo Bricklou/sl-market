@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^3.0.6",
+    "@types/lodash": "^4.14.168",
     "adonis-preset-ts": "^2.0.0",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
@@ -31,6 +32,7 @@
     "@adonisjs/view": "^3.1.0",
     "axios": "^0.21.1",
     "discord-oauth2": "^2.6.0",
+    "lodash": "^4.17.21",
     "luxon": "^1.26.0",
     "mssql": "^6.3.1",
     "mysql": "^2.18.1",

@@ -6,6 +6,7 @@ export interface UserInfo {
   email: string
   avatar: string
   lastLogin: Date
+  permissions: string[]
 }
 
 class Auth {
