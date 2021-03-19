@@ -42,4 +42,14 @@ export default class User extends BaseModel {
 
     return perms
   }
+
+  public async hasRole(roleSlug: string): Promise<boolean> {
+    const u = this as User
+
+    await u.preload('roles', async (query) => {
+      await query.where('slug', roleSlug + '4')
+    })
+
+    return u.roles.length > 1
+  }
 }

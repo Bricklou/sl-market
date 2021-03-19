@@ -50,9 +50,9 @@ class NavBar extends Component<NavBarProps> {
 
       return Object.entries(links).map(([link, name], index) => {
         return (
-          <NavLink to={link} activeClassName="active" key={index}>
-            {name}
-          </NavLink>
+          <li key={index}>
+            <Link to={link}>{name}</Link>
+          </li>
         )
       })
     } else {
@@ -87,6 +87,7 @@ class NavBar extends Component<NavBarProps> {
           </span>
 
           <ul className="dropdown">
+            {this.showSellerLinks()}
             <li>
               <button onClick={this.logout.bind(this)}>Déconnexion</button>
             </li>
@@ -118,7 +119,7 @@ class NavBar extends Component<NavBarProps> {
             <NavLink to="/vendeurs" activeClassName="active">
               vendeurs
             </NavLink>
-            {this.showSellerLinks()}
+
             {this.showAdminLinks()}
             {this.showAuthButton()}
           </span>

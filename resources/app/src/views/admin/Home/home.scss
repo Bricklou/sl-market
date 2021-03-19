@@ -1,0 +1,43 @@
+#admin-home {
+  @apply p-8;
+
+  .card-grid {
+    @apply grid grid-cols-1;
+
+    @screen md {
+      @apply grid-cols-3 max-w-6xl mx-auto;
+    }
+  }
+
+  .card {
+    @apply bg-gradient-to-br from-gray-300 to-gray-300 rounded-lg shadow p-4 text-white m-2;
+
+    &.card-orange {
+      @apply from-yellow-400 to-yellow-500;
+    }
+
+    &.card-red {
+      @apply from-pink-500 to-red-600;
+    }
+
+    &.card-purple {
+      @apply from-purple-500 to-indigo-500;
+    }
+
+    &.card-green {
+      @apply from-green-400 to-green-500;
+    }
+
+    .card-title {
+      @apply uppercase font-bold;
+    }
+
+    .icon {
+      @apply mx-auto text-6xl text-center px-4 py-2;
+    }
+
+    .number {
+      @apply text-3xl font-bold text-center;
+    }
+  }
+}

@@ -81,7 +81,6 @@ class Authentication extends Component<
     return (
       <main id="authentication">
         <div className="box">
-          {console.log(this.state.errors)}
           {this.state.errors.length > 0 ? this.showError() : this.showLoading()}
         </div>
       </main>

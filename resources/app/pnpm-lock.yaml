@@ -11,6 +11,7 @@ dependencies:
   axios: 0.21.1
   lodash: 4.17.21
   react: 17.0.1
+  react-countup: 4.3.3_react@17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-redux: 7.2.2_380dc38591053d98779d1f25fc7202b9
   react-router: 5.2.0_react@17.0.1
@@ -4009,6 +4010,10 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-pondGvTuVYDk++upghXJabWzL6Kxu6f26ljFw64Swq9v6sQPUL3EUlVDV56diOjpCayKihL6hVe8exIACU4XcA==
+  /countup.js/1.9.3:
+    dev: false
+    resolution:
+      integrity: sha1-zj5QzXFgRB5HjwfaMYle3MDxyd0=
   /create-ecdh/4.0.4:
     dependencies:
       bn.js: 4.12.0
@@ -10017,6 +10022,17 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-0sF4ny9v/B7s6aoehwze9vJNWcmCemAUYBVasscVr92+UYiEqDXOxfKjXN685mDaMRNF3WdhHQs76oTODMocFA==
+  /react-countup/4.3.3_react@17.0.1:
+    dependencies:
+      countup.js: 1.9.3
+      prop-types: 15.7.2
+      react: 17.0.1
+      warning: 4.0.3
+    dev: false
+    peerDependencies:
+      react: '>= 16.3.0'
+    resolution:
+      integrity: sha512-pWnxpwdPNRyJFha/YKKbyc4RLAw8PzmULdgCziGIgw6vxhT1VdccrvQgj38HBSoM2qF/MoLmn4M2klvDWVIdaw==
   /react-dev-utils/11.0.4:
     dependencies:
       '@babel/code-frame': 7.10.4
@@ -12253,6 +12269,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
+  /warning/4.0.3:
+    dependencies:
+      loose-envify: 1.4.0
+    dev: false
+    resolution:
+      integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
   /watchpack-chokidar2/2.0.1:
     dependencies:
       chokidar: 2.1.8
@@ -12826,6 +12848,7 @@ specifiers:
   postcss: ^7.0.35
   prettier: ^2.2.1
   react: ^17.0.1
+  react-countup: ^4.3.3
   react-dom: ^17.0.1
   react-redux: ^7.2.2
   react-router: ^5.2.0
