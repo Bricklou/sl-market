@@ -4,6 +4,7 @@ import AdminHome from './Home/Home'
 
 import './admin.scss'
 import NotFound from '../base/not_found/NotFound'
+import Users from './Users/Users'
 
 class Admin extends Component<RouteComponentProps> {
   render() {
@@ -11,9 +12,10 @@ class Admin extends Component<RouteComponentProps> {
     return (
       <main id="admin">
         <aside className="side-menu">
+          <h1 className="title">Administration</h1>
           <ul>
             <li>
-              <NavLink activeClassName="active" to={url}>
+              <NavLink activeClassName="active" exact to={url}>
                 <i className="fas fa-home"></i>
                 Général
               </NavLink>
@@ -29,7 +31,8 @@ class Admin extends Component<RouteComponentProps> {
         <div className="content">
           <Switch>
             <Route exact path={path} component={AdminHome} />
-            <Route path={`${path}/*`} component={NotFound} />
+            <Route exact path={`${path}/utilisateurs`} component={Users} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </main>

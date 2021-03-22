@@ -1,0 +1,53 @@
+#admin-user {
+  header {
+    @apply flex flex-row mb-1 justify-between w-full;
+
+    @screen sm {
+      @apply mb-0;
+    }
+
+    .title {
+      @apply text-2xl leading-tight;
+    }
+
+    .search-button {
+      @apply w-36 bg-indigo-500;
+
+      &:hover {
+        @apply bg-indigo-400;
+      }
+    }
+
+    .form-container {
+      @apply items-end;
+
+      form {
+        @apply flex w-full max-w-sm space-x-3;
+
+        * {
+          @apply relative;
+        }
+      }
+    }
+  }
+
+  .table-container {
+    @apply -mx-4 px-4 py-4 overflow-x-auto;
+
+    @screen sm {
+      @apply -mx-8 px-8;
+    }
+
+    .table {
+      @apply inline-block min-w-full shadow rounded-lg overflow-hidden;
+
+      table {
+        @apply bg-white;
+
+        th {
+          @apply px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal;
+        }
+      }
+    }
+  }
+}

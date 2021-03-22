@@ -21,4 +21,20 @@ export default class AdminsController {
       return response.internalServerError()
     }
   }
+
+  public async getUsers({ response, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const search = request.input('search', null)
+    try {
+      const users = await User.query()
+        .preload('roles')
+        .where('username', 'like', `%${search}%`)
+        .orWhere('username', 'like', `%${search}%`)
+        .paginate(page, 20)
+
+      return response.json(users)
+    } catch (error) {
+      return response.internalServerError(error)
+    }
+  }
 }

@@ -32,6 +32,7 @@ devDependencies:
   '@types/redux-logger': 3.0.8
   autoprefixer: 9.8.6
   cross-env: 7.0.3
+  date-fns: 2.19.0
   eslint-config-prettier: 8.1.0
   eslint-config-react-app: 6.0.0
   eslint-plugin-prettier: 3.3.1_a5f306c245f9405bc973aa159985476e
@@ -4372,6 +4373,12 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-X5eWTSXO/BJmpdIKCRuKUgSCgAN0OwliVK3yPKbwIWU1Tdw5BRajxlzMidvh+gwko9AfQ9zIj52pzF91Q3YAvQ==
+  /date-fns/2.19.0:
+    dev: true
+    engines:
+      node: '>=0.11'
+    resolution:
+      integrity: sha512-X3bf2iTPgCAQp9wvjOQytnf5vO5rESYRXlPIVcgSbtT5OTScPcsf9eZU+B/YIkKAtYr5WeCii58BgATrNitlWg==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -12840,6 +12847,7 @@ specifiers:
   autoprefixer: ^9.8.6
   axios: ^0.21.1
   cross-env: ^7.0.3
+  date-fns: ^2.19.0
   eslint-config-prettier: ^8.1.0
   eslint-config-react-app: ^6.0.0
   eslint-plugin-prettier: ^3.3.1

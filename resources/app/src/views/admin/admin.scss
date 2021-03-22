@@ -1,13 +1,18 @@
 #admin {
   @apply flex flex-row;
+
   .side-menu {
     @apply w-64 bg-gray-200 py-4 px-2;
 
+    .title {
+      @apply text-gray-700 uppercase font-semibold px-2;
+    }
+
     li {
-      @apply px-4 py-2 block;
+      @apply block mb-2;
 
       a {
-        @apply text-gray-600 transition-colors text-lg;
+        @apply text-gray-600 transition-colors text-lg px-4 py-2 block rounded-lg;
 
         i {
           @apply mr-4 w-4 h-4;
@@ -15,12 +20,12 @@
 
         &:hover,
         &.active {
-          @apply text-blue-500;
+          @apply text-blue-500 bg-gray-300  shadow-sm;
         }
       }
     }
   }
   .content {
-    @apply flex-1;
+    @apply flex-1  p-8;
   }
 }
