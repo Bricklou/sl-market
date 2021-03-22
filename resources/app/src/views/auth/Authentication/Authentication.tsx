@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import Loading from '../../../components/Loading/Loading'
+import Loading from '../../../components/base/Loading/Loading'
 import { RootState } from '../../../store'
 import auth from '../../../utils/auth'
 import './authentication.scss'

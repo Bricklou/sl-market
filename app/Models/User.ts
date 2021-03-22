@@ -5,11 +5,8 @@ import Permission from './Permission'
 import { flatten, uniq } from 'lodash'
 
 export default class User extends BaseModel {
-  @column({
-    isPrimary: true,
-    consume: (value: bigint) => BigInt(value).toString(),
-  })
-  public id: bigint
+  @column({ isPrimary: true })
+  public id: string
 
   @column()
   public username: string
@@ -23,7 +20,7 @@ export default class User extends BaseModel {
   @manyToMany(() => Role)
   public roles: ManyToMany<typeof Role>
 
-  @column.dateTime()
+  @column.dateTime({ autoCreate: true })
   public lastLogin: DateTime
 
   @column.dateTime({ autoCreate: true })

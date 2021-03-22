@@ -1,6 +1,4 @@
 #admin-home {
-  @apply p-8;
-
   .card-grid {
     @apply grid grid-cols-1;
 
@@ -29,7 +27,7 @@
     }
 
     .card-title {
-      @apply uppercase font-bold;
+      @apply uppercase font-bold mx-auto text-center;
     }
 
     .icon {

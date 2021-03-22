@@ -4,8 +4,6 @@ import User from 'App/Models/User'
 import Env from '@ioc:Adonis/Core/Env'
 import DiscordOAuth2 from 'discord-oauth2'
 import { DateTime } from 'luxon'
-import Permission from 'App/Models/Permission'
-import flattenDeep from 'lodash/flattenDeep'
 
 export default class AuthController {
   private oauth!: DiscordOAuth2
@@ -49,19 +47,22 @@ export default class AuthController {
       return response.badRequest('Discord user not valid')
     }
 
-    let user = await User.find(discordUser.id)
-
-    if (!user) {
-      user = await User.create({
-        id: discordUser.id,
-        username: discordUser.username,
-        email: discordUser.email,
-        avatar: discordUser.avatar,
-      })
-      user.save()
-    }
-
     try {
+      const user = await User.firstOrCreate(
+        {
+          id: discordUser.id.toString(),
+        },
+        {
+          id: discordUser.id.toString(),
+          lastLogin: DateTime.now(),
+          username: discordUser.username,
+          avatar: discordUser.avatar,
+          email: discordUser.email,
+        }
+      )
+      user.id = discordUser.id.toString()
+      await user.save()
+
       await auth.loginViaId(user.id.toString())
       auth.user!.lastLogin = DateTime.now()
       auth.user!.username = discordUser.username
@@ -70,7 +71,7 @@ export default class AuthController {
       await auth.user!.save()
     } catch (error) {
       console.error(error)
-      return response.internalServerError('')
+      return response.internalServerError(error.toString())
     }
 
     if (auth.user) {

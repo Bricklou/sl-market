@@ -41,7 +41,7 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
     }
   }
 
-  private requireAdmin: GuardFunction = async (to, from, next) => {
+  private requireAdmin: GuardFunction = (to, from, next) => {
     if (this.props.user && Acl.can(this.props.user, ['access:adminPanel'])) {
       next()
     } else {
@@ -65,12 +65,7 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
           <Route exact path="/" component={Home} />
 
           {/* Admin routes */}
-          <GuardedRoute
-            exact
-            path="/administration"
-            component={Admin}
-            guards={[this.requireAdmin]}
-          />
+          <GuardedRoute path="/administration" component={Admin} guards={[this.requireAdmin]} />
 
           {/* Auth routes */}
 

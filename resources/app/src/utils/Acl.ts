@@ -1,5 +1,5 @@
 import { every, some } from 'lodash'
-import { UserInfo } from './auth'
+import { UserInfo } from '../store/modules/user'
 
 export default class Acl {
   public static can(user: UserInfo | undefined, permission: string[]): boolean {

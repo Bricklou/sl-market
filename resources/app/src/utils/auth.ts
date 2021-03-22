@@ -1,13 +1,5 @@
+import { UserInfo } from '../store/modules/user'
 import api from './api'
-
-export interface UserInfo {
-  id: number
-  username: string
-  email: string
-  avatar: string
-  lastLogin: Date
-  permissions: string[]
-}
 
 class Auth {
   async logout() {

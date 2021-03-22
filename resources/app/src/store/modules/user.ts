@@ -7,12 +7,13 @@ export function typedAction(type: string, payload?: any) {
   return { type, payload }
 }
 
-interface UserInfo {
+export interface UserInfo {
   id: number
   username: string
   email: string
   avatar: string
-  lastLogin: Date
+  created_at: string
+  last_login: string
   permissions: string[]
 }
 
@@ -41,8 +42,9 @@ export function userReducer(state = initialState, actions: UserAction): UserStat
           username: actions.payload.username,
           email: actions.payload.email,
           avatar: actions.payload.avatar,
-          lastLogin: actions.payload.lastLogin,
+          last_login: actions.payload.last_login,
           permissions: actions.payload.permissions,
+          created_at: actions.payload.created_at,
         },
         isAuthenticated: true,
       }

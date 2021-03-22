@@ -1,7 +1,7 @@
 @import '../base/Button/button.scss';
 
 #navbar {
-  @apply bg-blue-500 text-white sticky z-10;
+  @apply bg-gradient-to-b from-blue-600 to-blue-500 text-white sticky z-10;
 
   .nav-container {
     @apply flex flex-col p-4;

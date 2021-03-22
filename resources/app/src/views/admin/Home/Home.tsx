@@ -45,33 +45,33 @@ export default class AdminHome extends Component<{}, AdminHomeState> {
       <div id="admin-home">
         <section className="card-grid">
           <article className="card card-orange">
-            <h1 className="card-title">Nombre d'utilisateurs</h1>
             <div className="icon">
               <i className="fas fa-users"></i>
+              <p className="number">
+                <CountUp end={this.state.usersCount} duration={countDuration} />
+              </p>
             </div>
-            <p className="number">
-              <CountUp end={this.state.usersCount} duration={countDuration} />
-            </p>
+            <h1 className="card-title">Nombre d'utilisateurs</h1>
           </article>
 
           <article className="card card-purple">
-            <h1 className="card-title">Nombre de vendeurs</h1>
             <div className="icon">
               <i className="fas fa-users"></i>
             </div>
             <p className="number">
               <CountUp end={this.state.sellersCount} duration={countDuration} />
             </p>
+            <h1 className="card-title">Nombre de vendeurs</h1>
           </article>
 
           <article className="card card-red">
-            <h1 className="card-title">Nombre de commandes en cours</h1>
             <div className="icon">
               <i className="fas fa-shopping-bag"></i>
             </div>
             <p className="number">
               <CountUp end={this.state.commandsCount} duration={countDuration} />
             </p>
+            <h1 className="card-title">Nombre de commandes en cours</h1>
           </article>
         </section>
       </div>

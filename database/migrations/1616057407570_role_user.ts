@@ -6,7 +6,7 @@ export default class UserRoles extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.bigInteger('user_id').references('user.id').notNullable()
+      table.string('user_id', 24).references('user.id').notNullable()
       table.integer('role_id').references('roles.id').notNullable()
     })
   }

@@ -6,9 +6,7 @@ export default class AdminsController {
     try {
       const usersCount = await User.query().count('id', 'c').first()
       const sellersCount = await User.query()
-        .preload('roles', (query) => {
-          query.where('slug', 'seller')
-        })
+        .whereHas('roles', (query) => query.where('slug', 'seller'))
         .count('id', 'c')
         .first()
 

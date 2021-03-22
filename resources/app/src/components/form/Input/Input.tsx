@@ -3,12 +3,12 @@ import './input.scss'
 
 type InputProps = {
   id: string
-  type: 'text' | 'password' | 'email'
+  type: 'text' | 'password' | 'email' | 'search'
   name: string
   placeholder: string
   className?: string
   icon?: string
-  onChange?: ChangeEventHandler
+  onChange?: ChangeEventHandler<HTMLInputElement>
   disabled?: boolean
 }
 
