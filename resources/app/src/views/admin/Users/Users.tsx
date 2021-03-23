@@ -27,9 +27,9 @@ const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
 })
 
-type NavBarProps = ReturnType<typeof mapStateToProps>
+type UserProps = ReturnType<typeof mapStateToProps>
 
-class Users extends Component<NavBarProps, UsersState> {
+class Users extends Component<UserProps, UsersState> {
   state: UsersState = {
     users: [],
     meta: undefined,
