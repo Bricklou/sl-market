@@ -125,7 +125,7 @@ class Users extends Component<NavBarProps, UsersState> {
                 <th>Rôle(s)</th>
                 <th>Créé le</th>
                 <th>Dernière connexion</th>
-                <th>Actions</th>
+                <th className="right">Actions</th>
               </tr>
             </thead>
             <tbody>{this.showUserList()}</tbody>

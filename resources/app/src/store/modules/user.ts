@@ -15,6 +15,11 @@ export interface UserInfo {
   created_at: string
   last_login: string
   permissions: string[]
+  roles: {
+    id: number
+    name: string
+    slug: number
+  }[]
 }
 
 interface UserState {
@@ -45,6 +50,7 @@ export function userReducer(state = initialState, actions: UserAction): UserStat
           last_login: actions.payload.last_login,
           permissions: actions.payload.permissions,
           created_at: actions.payload.created_at,
+          roles: actions.payload.roles,
         },
         isAuthenticated: true,
       }

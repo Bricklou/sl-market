@@ -18,7 +18,7 @@ export default class UserItem extends Component<UserItemProps> {
     return ''
   }
 
-  formatDate(date: string) {
+  private formatDate(date: string) {
     return format(new Date(date), 'P', {
       locale: fr,
     })
@@ -33,7 +33,13 @@ export default class UserItem extends Component<UserItemProps> {
           </div>
           <p className="username">{this.props.user.username}</p>
         </td>
-        <td>no roles</td>
+        <td className="roles">
+          <ul>
+            {this.props.user.roles.map((role, index) => (
+              <li key={index}>{role.name}</li>
+            ))}
+          </ul>
+        </td>
         <td>
           <p className="text-gray-900 whitespace-no-wrap">
             {this.formatDate(this.props.user.created_at)}

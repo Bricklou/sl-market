@@ -23,6 +23,10 @@
     }
   }
 
+  td.roles li {
+    @apply leading-4 italic text-center;
+  }
+
   .actions {
     @apply flex justify-end;
 
