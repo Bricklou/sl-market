@@ -37,4 +37,29 @@ export default class AdminsController {
       return response.internalServerError(error)
     }
   }
+
+  public async deleteUser({ auth, response, request }: HttpContextContract) {
+    const userId = request.input('id')
+
+    if (!userId) {
+      return response.badRequest('"id" params is missing')
+    }
+
+    if (userId === auth.user!.id) {
+      return response.forbidden("can't delete yourself from here")
+    }
+
+    try {
+      const user = await User.find(userId)
+
+      if (user) {
+        await user.delete()
+        return response.ok('')
+      } else {
+        return response.notFound('user not found')
+      }
+    } catch (error) {
+      return response.internalServerError(error)
+    }
+  }
 }

@@ -1,15 +1,16 @@
-import { ChangeEvent, Component } from 'react'
+import { Component } from 'react'
 import Button from '../../../components/base/Button/Button'
 import Input from '../../../components/form/Input/Input'
 import api from '../../../utils/api'
 import { ApiPagination, ApiPaginationMeta } from '../../../types'
 import './users.scss'
-import UserItem from './components/UserItem'
+import UserItem from './components/UserItem/UserItem'
 import { UserInfo } from '../../../store/modules/user'
 import Paginator from '../../../components/base/Paginator/Paginator'
 import { connect } from 'react-redux'
 import { RootState } from '../../../store'
 import Loading from '../../../components/base/Loading/Loading'
+import DeleteModal, { ModalResponses } from './components/DeleteModal/DeleteModal'
 
 type ApiUserResponse = ApiPagination<UserInfo>
 
@@ -18,6 +19,8 @@ interface UsersState {
   meta?: ApiPaginationMeta
   search: string
   page: number
+  selectedUser?: UserInfo
+  deleteLoading: boolean
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -32,6 +35,8 @@ class Users extends Component<NavBarProps, UsersState> {
     meta: undefined,
     search: '',
     page: 1,
+    selectedUser: undefined,
+    deleteLoading: false,
   }
   async componentDidMount() {
     try {
@@ -62,9 +67,50 @@ class Users extends Component<NavBarProps, UsersState> {
             user={user}
             key={index}
             canDelete={this.props.user && user.id !== this.props.user.id}
+            onDelete={() => {
+              this.setState({
+                selectedUser: user,
+              })
+            }}
           ></UserItem>
         )
       })
+    }
+  }
+
+  private async deleteUser(user: UserInfo) {
+    try {
+      await api.delete('/admin/user', {
+        params: {
+          id: user.id,
+        },
+      })
+    } catch (error) {}
+  }
+
+  private showDeleteModal() {
+    if (this.state.selectedUser) {
+      const u = this.state.selectedUser
+      return (
+        <DeleteModal
+          isOpen={true}
+          user={u}
+          loading={this.state.deleteLoading}
+          onClose={async (result) => {
+            if (result === ModalResponses.DELETE) {
+              this.setState({ deleteLoading: true })
+
+              await this.deleteUser(u)
+
+              await this.fetchUserList()
+            }
+            this.setState({
+              selectedUser: undefined,
+              deleteLoading: false,
+            })
+          }}
+        />
+      )
     }
   }
 
@@ -134,6 +180,7 @@ class Users extends Component<NavBarProps, UsersState> {
           </div>
         </header>
         <div className="table-container">{this.showTable()}</div>
+        {this.showDeleteModal()}
       </div>
     )
   }

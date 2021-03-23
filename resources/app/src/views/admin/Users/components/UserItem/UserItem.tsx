@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { UserInfo } from '../../../../store/modules/user'
+import { UserInfo } from '../../../../../store/modules/user'
 import { format } from 'date-fns'
 import fr from 'date-fns/locale/fr'
 import './user-item.scss'
@@ -7,6 +7,7 @@ import './user-item.scss'
 interface UserItemProps {
   user: UserInfo
   canDelete?: boolean
+  onDelete: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export default class UserItem extends Component<UserItemProps> {
@@ -52,7 +53,7 @@ export default class UserItem extends Component<UserItemProps> {
   showDeleteBtn() {
     if (this.props.canDelete) {
       return (
-        <button className="delete">
+        <button className="delete" onClick={(e) => this.props.onDelete(e)}>
           <i className="fas fa-trash"></i>
         </button>
       )
