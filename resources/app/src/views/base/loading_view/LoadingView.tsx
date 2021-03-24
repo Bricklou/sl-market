@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Loading from '../../../components/Loading/Loading'
+import Loading from '../../../components/base/Loading/Loading'
 
 class LoadingView extends Component {
   render() {

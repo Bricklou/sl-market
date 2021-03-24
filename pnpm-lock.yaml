@@ -7,6 +7,7 @@ dependencies:
   '@adonisjs/view': 3.1.0_f7968a6f25229c6db3de812867dfec03
   axios: 0.21.1
   discord-oauth2: 2.6.0
+  lodash: 4.17.21
   luxon: 1.26.0
   mssql: 6.3.1
   mysql: 2.18.1
@@ -19,6 +20,7 @@ dependencies:
   sqlite3: 5.0.2
 devDependencies:
   '@adonisjs/assembler': 3.0.6_f7968a6f25229c6db3de812867dfec03
+  '@types/lodash': 4.14.168
   adonis-preset-ts: 2.0.0
   eslint: 7.21.0
   eslint-config-prettier: 8.1.0_eslint@7.21.0
@@ -587,6 +589,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==
+  /@types/lodash/4.14.168:
+    dev: true
+    resolution:
+      integrity: sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
   /@types/luxon/1.26.2:
     dev: false
     resolution:
@@ -5433,6 +5439,7 @@ specifiers:
   '@adonisjs/repl': ^1.1.6
   '@adonisjs/session': ^4.0.6
   '@adonisjs/view': ^3.1.0
+  '@types/lodash': ^4.14.168
   adonis-preset-ts: ^2.0.0
   axios: ^0.21.1
   discord-oauth2: ^2.6.0
@@ -5440,6 +5447,7 @@ specifiers:
   eslint-config-prettier: ^8.1.0
   eslint-plugin-adonis: ^1.2.1
   eslint-plugin-prettier: ^3.3.1
+  lodash: ^4.17.21
   luxon: ^1.26.0
   mssql: ^6.3.1
   mysql: ^2.18.1

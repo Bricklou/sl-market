@@ -7,6 +7,7 @@ import { RootState } from '../../store'
 import { logout } from '../../store/modules/user'
 import { withRouter } from 'react-router-dom'
 import auth from '../../utils/auth'
+import Acl from '../../utils/Acl'
 
 const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
@@ -15,23 +16,11 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = { logout }
 
-type NavBarState = {
-  displayMenu: boolean
-}
 type NavBarProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   RouteComponentProps
 
-class NavBar extends Component<NavBarProps, NavBarState> {
-  private dropdownMenu?: HTMLUListElement | null
-
-  constructor(props: NavBarProps) {
-    super(props)
-    this.state = {
-      displayMenu: false,
-    }
-  }
-
+class NavBar extends Component<NavBarProps> {
   private async logout(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
 
@@ -53,6 +42,40 @@ class NavBar extends Component<NavBarProps, NavBarState> {
     return ''
   }
 
+  private showSellerLinks() {
+    if (this.props.user && Acl.can(this.props.user, ['access:sellerPanel'])) {
+      const links = {
+        '/mes-services': 'Mes services',
+      }
+
+      return Object.entries(links).map(([link, name], index) => {
+        return (
+          <li key={index}>
+            <Link to={link}>{name}</Link>
+          </li>
+        )
+      })
+    } else {
+      return null
+    }
+  }
+
+  private showAdminLinks() {
+    if (this.props.user && Acl.can(this.props.user, ['access:adminPanel'])) {
+      const links = {
+        '/administration': 'Administration',
+      }
+
+      return Object.entries(links).map(([link, name], index) => {
+        return (
+          <NavLink to={link} activeClassName="active" key={index}>
+            {name}
+          </NavLink>
+        )
+      })
+    }
+  }
+
   private showAuthButton() {
     if (this.props.isAuthenticated) {
       return (
@@ -63,7 +86,8 @@ class NavBar extends Component<NavBarProps, NavBarState> {
             <i className="fas fa-caret-down"></i>
           </span>
 
-          <ul className="dropdown" ref={(element) => (this.dropdownMenu = element)}>
+          <ul className="dropdown">
+            {this.showSellerLinks()}
             <li>
               <button onClick={this.logout.bind(this)}>Déconnexion</button>
             </li>
@@ -95,6 +119,8 @@ class NavBar extends Component<NavBarProps, NavBarState> {
             <NavLink to="/vendeurs" activeClassName="active">
               vendeurs
             </NavLink>
+
+            {this.showAdminLinks()}
             {this.showAuthButton()}
           </span>
         </div>

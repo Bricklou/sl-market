@@ -1,0 +1,53 @@
+.user-item {
+  &:hover {
+    @apply bg-gray-100;
+  }
+
+  td {
+    @apply p-5 border-b border-gray-200 text-sm;
+  }
+
+  td.user-profile {
+    @apply flex items-center flex-shrink-0;
+
+    .avatar-container {
+      @apply flex-shrink-0;
+
+      img {
+        @apply mx-auto object-cover rounded-full h-10 w-10 shadow-md;
+      }
+    }
+
+    .username {
+      @apply ml-3 text-gray-900 whitespace-nowrap font-semibold;
+    }
+  }
+
+  td.roles li {
+    @apply leading-4 italic;
+  }
+
+  .actions {
+    @apply flex justify-end;
+
+    button {
+      @apply text-indigo-600 w-8 h-8 rounded-full transition-colors ease-in duration-100 bg-opacity-80;
+
+      &:hover {
+        @apply text-indigo-500 bg-gray-300;
+      }
+
+      &:not(:last-child) {
+        @apply mr-1;
+      }
+    }
+
+    button.delete {
+      @apply text-red-600;
+
+      &:hover {
+        @apply text-red-500;
+      }
+    }
+  }
+}

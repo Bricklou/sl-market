@@ -10,6 +10,8 @@ import { login, logout } from '../store/modules/user'
 import LoadingView from '../views/base/loading_view/LoadingView'
 import { Component } from 'react'
 import { connect } from 'react-redux'
+import Acl from '../utils/Acl'
+import Admin from '../views/admin/Admin'
 
 const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
@@ -39,6 +41,14 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
     }
   }
 
+  private requireAdmin: GuardFunction = (to, from, next) => {
+    if (this.props.user && Acl.can(this.props.user, ['access:adminPanel'])) {
+      next()
+    } else {
+      next.redirect('/')
+    }
+  }
+
   async componentDidMount() {
     try {
       const response = await auth.refresh()
@@ -54,14 +64,20 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
           {/* Base routes */}
           <Route exact path="/" component={Home} />
 
+          {/* Admin routes */}
+          <GuardedRoute path="/administration" component={Admin} guards={[this.requireAdmin]} />
+
           {/* Auth routes */}
-          <GuardProvider guards={[this.requireGuest]} loading={LoadingView}>
-            <Switch>
-              <GuardedRoute exact path="/authentication" component={Authentication} />
-            </Switch>
-          </GuardProvider>
+
+          <GuardedRoute
+            exact
+            path="/authentication"
+            component={Authentication}
+            guards={[this.requireGuest]}
+          />
+
           {/* Page not found */}
-          <Route component={NotFound} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </GuardProvider>
     )

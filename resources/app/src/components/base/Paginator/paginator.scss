@@ -1,0 +1,26 @@
+.pagination-container {
+  @apply px-5 bg-white py-5 flex flex-col items-center;
+
+  .pagination {
+    @apply flex items-center;
+
+    button {
+      @apply w-full px-4 py-2 border text-base text-gray-600 bg-white;
+
+      &:first-child {
+        @apply border-t border-b border-l rounded-l-xl;
+      }
+      &:last-child {
+        @apply border-t border-b border-r rounded-r-xl;
+      }
+
+      &:hover {
+        @apply bg-gray-100 text-indigo-500;
+      }
+
+      &.active {
+        @apply bg-gradient-to-br from-blue-400 to-indigo-500 text-white font-semibold;
+      }
+    }
+  }
+}

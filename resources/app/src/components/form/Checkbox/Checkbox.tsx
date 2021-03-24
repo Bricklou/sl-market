@@ -6,7 +6,7 @@ type CheckboxProps = {
   label: string
   checked?: boolean
   className?: string
-  onChange?: ChangeEventHandler
+  onChange?: ChangeEventHandler<HTMLInputElement>
   disabled?: boolean
 }
 
@@ -20,6 +20,7 @@ class Checkbox extends Component<CheckboxProps> {
           className="checkbox"
           onChange={this.props.onChange}
           disabled={this.props.disabled}
+          checked={this.props.checked}
         />
         <label htmlFor={this.props.id} className="label">
           {this.props.label}

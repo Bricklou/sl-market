@@ -47,19 +47,22 @@ export default class AuthController {
       return response.badRequest('Discord user not valid')
     }
 
-    let user = await User.find(discordUser.id)
-
-    if (!user) {
-      user = await User.create({
-        id: discordUser.id,
-        username: discordUser.username,
-        email: discordUser.email,
-        avatar: discordUser.avatar,
-      })
-      user.save()
-    }
-
     try {
+      const user = await User.firstOrCreate(
+        {
+          id: discordUser.id.toString(),
+        },
+        {
+          id: discordUser.id.toString(),
+          lastLogin: DateTime.now(),
+          username: discordUser.username,
+          avatar: discordUser.avatar,
+          email: discordUser.email,
+        }
+      )
+      user.id = discordUser.id.toString()
+      await user.save()
+
       await auth.loginViaId(user.id.toString())
       auth.user!.lastLogin = DateTime.now()
       auth.user!.username = discordUser.username
@@ -68,10 +71,19 @@ export default class AuthController {
       await auth.user!.save()
     } catch (error) {
       console.error(error)
-      return response.internalServerError('')
+      return response.internalServerError(error.toString())
     }
 
-    return response.json(auth.user)
+    if (auth.user) {
+      return response.json({
+        id: auth.user.id,
+        username: auth.user.username,
+        email: auth.user.email,
+        avatar: auth.user.avatar,
+        permissions: (await auth.user.getPermissions()).map((perm) => perm.slug).sort(),
+      })
+    }
+    return response.unauthorized({})
   }
 
   public async logout({ auth, response }: HttpContextContract) {
@@ -83,13 +95,36 @@ export default class AuthController {
     try {
       await auth.authenticate()
       if (auth.user) {
-        return response.ok(auth.user)
+        await auth.user.preload('roles', async (query) => {
+          await query.preload('permissions')
+        })
+
+        return response.json({
+          id: auth.user.id,
+          username: auth.user.username,
+          email: auth.user.email,
+          avatar: auth.user.avatar,
+          permissions: (await auth.user.getPermissions()).map((perm) => perm.slug).sort(),
+        })
       }
     } catch (_) {}
     return response.unauthorized({})
   }
 
   public async get({ auth, response }: HttpContextContract) {
-    return response.ok(auth.user)
+    if (auth.user) {
+      await auth.user.preload('roles', async (query) => {
+        await query.preload('permissions')
+      })
+
+      return response.json({
+        id: auth.user.id,
+        username: auth.user.username,
+        email: auth.user.email,
+        avatar: auth.user.avatar,
+        permissions: (await auth.user.getPermissions()).map((perm) => perm.slug).sort(),
+      })
+    }
+    return response.unauthorized({})
   }
 }
