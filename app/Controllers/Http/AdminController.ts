@@ -1,5 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import Roles from 'App/Models/Role'
 
 export default class AdminsController {
   public async stats({ response }: HttpContextContract) {
@@ -28,7 +30,7 @@ export default class AdminsController {
     try {
       const users = await User.query()
         .preload('roles', (query) => {
-          return query.select('name')
+          return query.select('name', 'slug')
         })
         .where('username', 'like', `%${search}%`)
         .orWhere('username', 'like', `%${search}%`)
@@ -57,10 +59,70 @@ export default class AdminsController {
 
       if (user) {
         await user.delete()
-        return response.ok('')
+        return response.ok({})
       } else {
         return response.notFound('user not found')
       }
+    } catch (error) {
+      return response.internalServerError(error)
+    }
+  }
+
+  public async updateUserRole({ request, response, auth }: HttpContextContract) {
+    const data = await request.validate({
+      schema: schema.create({
+        userId: schema.string(
+          {
+            escape: true,
+            trim: true,
+          },
+          [
+            rules.exists({
+              column: 'id',
+              table: 'users',
+            }),
+          ]
+        ),
+        role: schema.string(
+          {
+            escape: true,
+            trim: true,
+          },
+          [
+            rules.exists({
+              column: 'slug',
+              table: 'roles',
+            }),
+          ]
+        ),
+        state: schema.boolean(),
+      }),
+    })
+
+    try {
+      const role = await Roles.findBy('slug', data.role)
+
+      if (!role) {
+        return response.notFound('role not found')
+      }
+
+      const user = await User.find(data.userId)
+
+      if (!user) {
+        return response.notFound('user or role not found')
+      }
+
+      if (user.id === auth.user!.id && role.slug === 'admin') {
+        return response.forbidden("can't change this role")
+      }
+
+      if (data.state) {
+        await user.related('roles').attach([role.id])
+      } else {
+        await user.related('roles').detach([role.id])
+      }
+
+      return response.ok({})
     } catch (error) {
       return response.internalServerError(error)
     }

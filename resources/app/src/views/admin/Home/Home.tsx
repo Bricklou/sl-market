@@ -43,6 +43,9 @@ export default class AdminHome extends Component<{}, AdminHomeState> {
     const countDuration = 2
     return (
       <div id="admin-home">
+        <header>
+          <h2 className="title">Général</h2>
+        </header>
         <section className="card-grid">
           <article className="card card-orange">
             <div className="icon">

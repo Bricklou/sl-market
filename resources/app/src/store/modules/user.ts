@@ -8,7 +8,7 @@ export function typedAction(type: string, payload?: any) {
 }
 
 export interface UserInfo {
-  id: number
+  id: string
   username: string
   email: string
   avatar: string
@@ -18,7 +18,7 @@ export interface UserInfo {
   roles: {
     id: number
     name: string
-    slug: number
+    slug: string
   }[]
 }
 

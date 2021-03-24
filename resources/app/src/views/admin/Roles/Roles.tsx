@@ -1,43 +1,38 @@
 import { Component } from 'react'
-import Button from '../../../components/base/Button/Button'
-import Input from '../../../components/form/Input/Input'
-import api from '../../../utils/api'
-import { ApiPagination, ApiPaginationMeta } from '../../../types'
-import './users.scss'
-import UserItem from './components/UserItem/UserItem'
-import { UserInfo } from '../../../store/modules/user'
-import Paginator from '../../../components/base/Paginator/Paginator'
 import { connect } from 'react-redux'
-import { RootState } from '../../../store'
+import Button from '../../../components/base/Button/Button'
 import Loading from '../../../components/base/Loading/Loading'
-import DeleteModal, { ModalResponses } from './components/DeleteModal/DeleteModal'
+import Paginator from '../../../components/base/Paginator/Paginator'
+import Input from '../../../components/form/Input/Input'
+import { RootState } from '../../../store'
+import { UserInfo } from '../../../store/modules/user'
+import { ApiPagination, ApiPaginationMeta } from '../../../types'
+import api from '../../../utils/api'
+import RoleItem from './components/RoleItem/RoleItem'
+import './roles.scss'
 
-type ApiUserResponse = ApiPagination<UserInfo>
+type ApiRoleResponse = ApiPagination<UserInfo>
 
-interface UsersState {
+interface RolesState {
   users: UserInfo[]
   meta?: ApiPaginationMeta
   search: string
   page: number
-  selectedUser?: UserInfo
-  deleteLoading: boolean
 }
 
 const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
 })
+type RolesProps = ReturnType<typeof mapStateToProps>
 
-type UserProps = ReturnType<typeof mapStateToProps>
-
-class Users extends Component<UserProps, UsersState> {
-  state: UsersState = {
+class Roles extends Component<RolesProps, RolesState> {
+  state: RolesState = {
     users: [],
     meta: undefined,
     search: '',
     page: 1,
-    selectedUser: undefined,
-    deleteLoading: false,
   }
+
   async componentDidMount() {
     try {
       await this.fetchUserList()
@@ -47,7 +42,7 @@ class Users extends Component<UserProps, UsersState> {
   }
 
   private async fetchUserList() {
-    const result = await api.get<ApiUserResponse>('/admin/users', {
+    const result = await api.get<ApiRoleResponse>('/admin/users', {
       params: {
         page: this.state.page,
         search: this.state.search,
@@ -59,58 +54,34 @@ class Users extends Component<UserProps, UsersState> {
     })
   }
 
-  private showUserList() {
-    if (this.state.users && this.props.user) {
-      return this.state.users.map((user, index) => {
-        return (
-          <UserItem
-            user={user}
-            key={index}
-            canDelete={this.props.user && user.id !== this.props.user.id}
-            onDelete={() => {
-              this.setState({
-                selectedUser: user,
-              })
-            }}
-          ></UserItem>
-        )
+  private async updateUserRole(userId: string, roleName: string, state: boolean) {
+    try {
+      await api.put('/admin/user/role', {
+        userId,
+        role: roleName,
+        state,
       })
+      await this.fetchUserList()
+    } catch (error) {
+      console.error(error)
     }
   }
 
-  private async deleteUser(user: UserInfo) {
-    try {
-      await api.delete('/admin/user', {
-        params: {
-          id: user.id,
-        },
+  private showUserList() {
+    if (this.state.users && this.props.user) {
+      const u = this.props.user
+      return this.state.users.map((user, index) => {
+        return (
+          <RoleItem
+            user={user}
+            key={index}
+            canChange={user.id !== u.id}
+            onChange={async (key, value) => {
+              await this.updateUserRole(user.id, key, value)
+            }}
+          />
+        )
       })
-    } catch (error) {}
-  }
-
-  private showDeleteModal() {
-    if (this.state.selectedUser) {
-      const u = this.state.selectedUser
-      return (
-        <DeleteModal
-          isOpen={true}
-          user={u}
-          loading={this.state.deleteLoading}
-          onClose={async (result) => {
-            if (result === ModalResponses.DELETE) {
-              this.setState({ deleteLoading: true })
-
-              await this.deleteUser(u)
-
-              await this.fetchUserList()
-            }
-            this.setState({
-              selectedUser: undefined,
-              deleteLoading: false,
-            })
-          }}
-        />
-      )
     }
   }
 
@@ -122,10 +93,9 @@ class Users extends Component<UserProps, UsersState> {
             <thead>
               <tr>
                 <th>Utilisateur</th>
-                <th>Rôle(s)</th>
-                <th>Créé le</th>
                 <th>Dernière connexion</th>
-                <th className="right">Actions</th>
+                <th>Administrateur</th>
+                <th>Vendeur</th>
               </tr>
             </thead>
             <tbody>{this.showUserList()}</tbody>
@@ -151,9 +121,10 @@ class Users extends Component<UserProps, UsersState> {
 
   render() {
     return (
-      <div id="admin-user">
+      <div id="admin-roles">
         <header>
-          <h2 className="title">Utilisateurs</h2>
+          <h2 className="title">Rôles</h2>
+
           <div className="form-container">
             <form
               onSubmit={(event) => {
@@ -180,10 +151,9 @@ class Users extends Component<UserProps, UsersState> {
           </div>
         </header>
         <div className="table-container">{this.showTable()}</div>
-        {this.showDeleteModal()}
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps)(Users)
+export default connect(mapStateToProps)(Roles)

@@ -1,4 +1,16 @@
 #admin-home {
+  header {
+    @apply flex flex-row mb-1 justify-between w-full;
+
+    @screen sm {
+      @apply mb-0;
+    }
+
+    .title {
+      @apply text-2xl leading-tight;
+    }
+  }
+
   .card-grid {
     @apply grid grid-cols-1;
 

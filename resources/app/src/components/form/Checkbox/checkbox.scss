@@ -23,6 +23,10 @@
     &:focus {
       @apply outline-none;
     }
+
+    &:disabled {
+      @apply bg-gray-200;
+    }
   }
 
   input.checkbox + .label {

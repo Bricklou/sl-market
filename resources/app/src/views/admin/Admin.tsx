@@ -1,10 +1,11 @@
 import { Component } from 'react'
 import { NavLink, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom'
-import AdminHome from './Home/Home'
-
 import './admin.scss'
-import NotFound from '../base/not_found/NotFound'
+
+import AdminHome from './Home/Home'
 import Users from './Users/Users'
+import Roles from './Roles/Roles'
+import NotFound from '../base/not_found/NotFound'
 
 class Admin extends Component<RouteComponentProps> {
   render() {
@@ -26,12 +27,19 @@ class Admin extends Component<RouteComponentProps> {
                 Utilisateurs
               </NavLink>
             </li>
+            <li>
+              <NavLink activeClassName="active" exact to={`${url}/roles`}>
+                <i className="fas fa-user-tag"></i>
+                Rôles
+              </NavLink>
+            </li>
           </ul>
         </aside>
         <div className="content">
           <Switch>
             <Route exact path={path} component={AdminHome} />
             <Route exact path={`${path}/utilisateurs`} component={Users} />
+            <Route exact path={`${path}/roles`} component={Roles} />
             <Route component={NotFound} />
           </Switch>
         </div>
