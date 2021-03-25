@@ -25,6 +25,7 @@ Route.any('/:any?', 'ViewsController.app').where('any', '^(?!api).*$')
 Route.group(() => {
   require('./auth')
   require('./admin')
+  require('./seller')
 }).prefix('/api')
 
 Route.any('*', async ({ response }) => response.notFound({}))

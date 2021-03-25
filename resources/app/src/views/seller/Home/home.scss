@@ -1,0 +1,21 @@
+#seller-home {
+  header {
+    @apply flex flex-row mb-1 justify-between w-full;
+
+    @screen md {
+      @apply mb-0;
+    }
+
+    .title {
+      @apply text-2xl leading-tight;
+    }
+  }
+
+  .card-grid {
+    @apply grid grid-cols-1;
+
+    @screen md {
+      @apply grid-cols-3 max-w-6xl mx-auto;
+    }
+  }
+}

@@ -12,6 +12,7 @@ import { Component } from 'react'
 import { connect } from 'react-redux'
 import Acl from '../utils/Acl'
 import Admin from '../views/admin/Admin'
+import Seller from '../views/seller/Seller'
 
 const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
@@ -49,6 +50,14 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
     }
   }
 
+  private requireSeller: GuardFunction = (to, from, next) => {
+    if (this.props.user && Acl.can(this.props.user, ['access:sellerPanel'])) {
+      next()
+    } else {
+      next.redirect('/')
+    }
+  }
+
   async componentDidMount() {
     try {
       const response = await auth.refresh()
@@ -66,6 +75,9 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
 
           {/* Admin routes */}
           <GuardedRoute path="/administration" component={Admin} guards={[this.requireAdmin]} />
+
+          {/* Seller routes */}
+          <GuardedRoute path="/mes-services" component={Seller} guards={[this.requireSeller]} />
 
           {/* Auth routes */}
 

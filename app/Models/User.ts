@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { column, BaseModel, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { column, BaseModel, manyToMany, ManyToMany, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import Role from './Role'
 import Permission from './Permission'
 import { flatten, uniq } from 'lodash'
+import SellerProfile from './SellerProfile'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -19,6 +20,9 @@ export default class User extends BaseModel {
 
   @manyToMany(() => Role)
   public roles: ManyToMany<typeof Role>
+
+  @hasOne(() => SellerProfile)
+  public sellerProfile: HasOne<typeof SellerProfile>
 
   @column.dateTime({ autoCreate: true })
   public lastLogin: DateTime

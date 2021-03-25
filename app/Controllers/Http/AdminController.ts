@@ -109,7 +109,7 @@ export default class AdminsController {
       const user = await User.find(data.userId)
 
       if (!user) {
-        return response.notFound('user or role not found')
+        return response.notFound('user not found')
       }
 
       if (user.id === auth.user!.id && role.slug === 'admin') {
@@ -118,6 +118,12 @@ export default class AdminsController {
 
       if (data.state) {
         await user.related('roles').attach([role.id])
+        if (!user.sellerProfile) {
+          const profile = await user.related('sellerProfile').create({
+            status: 'available',
+          })
+          await profile.save()
+        }
       } else {
         await user.related('roles').detach([role.id])
       }

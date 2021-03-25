@@ -1,0 +1,82 @@
+#seller {
+  @apply flex flex-row;
+
+  .side-menu {
+    @apply w-64 bg-gray-200 py-4 px-2;
+
+    .status-container {
+      @apply mx-2 px-2 mb-2 rounded transition-colors;
+
+      button {
+        @apply flex py-2 items-center w-full;
+        p {
+          @apply uppercase text-sm font-semibold text-gray-700 px-2 inline-block;
+        }
+
+        &:focus {
+          @apply outline-none;
+        }
+      }
+
+      .status-indicator {
+        @apply w-4 h-4 bg-gray-400 rounded-full inline-block transition-colors ease-in duration-100;
+
+        &.status-available {
+          @apply bg-green-500;
+        }
+
+        &.status-unavailable {
+          @apply bg-red-500;
+        }
+
+        &.status-vacation {
+          @apply bg-yellow-500;
+        }
+      }
+
+      &.active {
+        @apply bg-gray-300 shadow;
+      }
+
+      .status-list {
+        @apply px-4 py-2 block;
+
+        li {
+          @apply flex items-center;
+
+          button {
+            @apply py-0;
+          }
+
+          p {
+            @apply ml-2;
+          }
+        }
+      }
+    }
+
+    .title {
+      @apply text-gray-700 uppercase font-semibold px-2;
+    }
+
+    li {
+      @apply block mb-2;
+
+      a {
+        @apply text-gray-600 transition-colors text-lg px-4 py-2 block rounded-lg;
+
+        i {
+          @apply mr-4 w-4 h-4;
+        }
+
+        &:hover,
+        &.active {
+          @apply text-blue-500 bg-gray-300 shadow-sm;
+        }
+      }
+    }
+  }
+  .content {
+    @apply flex-1 p-8;
+  }
+}
