@@ -128,7 +128,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
     | npm i mssql
     |
     */
-    oracle: {
+    mssql: {
       client: 'mssql',
       connection: {
         user: Env.get('MSSQL_USER'),

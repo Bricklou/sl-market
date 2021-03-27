@@ -18,7 +18,7 @@ Premièrement, forkez et clonez le dépôt. Après cela, l'environnement devra �
 $ git branch -a
 ```
 
-Pour l'installation des dépendances, suivez ces [indications](./README.md#dependances).
+Pour l'installation des dépendances, suivez ces [indications](./README.md#dépendances).
 
 ## Démarrer une branche de fonctionnalités
 

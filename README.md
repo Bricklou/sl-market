@@ -2,7 +2,7 @@
 
 Support-launcher Market est le nom du site de vente utilisé pour le serveur discord Support-Launcher.
 
-[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](https://opensource.org/licenses/ISC)
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 [![Build Status](https://travis-ci.com/Bricklou/supportlauncher-market.svg?branch=develop)](https://travis-ci.com/Bricklou/supportlauncher-market)
 [![Coverage Status](https://coveralls.io/repos/github/Bricklou/supportlauncher-market/badge.svg?branch=develop)](https://coveralls.io/github/Bricklou/supportlauncher-market?branch=develop)
 
