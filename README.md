@@ -35,7 +35,10 @@ $ pnpm i
 Pour déployer la base de donnée, exécutez la commande suivante à la racine du projet (le fichier `.env` doit avoir été configuré) :
 
 ```sh
+# pour créer les tables
 $ node ace migration:run
+# pour préremplir les donnée
+$ node ace db:seed
 ```
 
 ### Notes pour SQLite
