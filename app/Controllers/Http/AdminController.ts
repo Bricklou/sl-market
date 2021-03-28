@@ -118,14 +118,27 @@ export default class AdminsController {
 
       if (data.state) {
         await user.related('roles').attach([role.id])
-        if (!user.sellerProfile) {
-          const profile = await user.related('sellerProfile').create({
-            status: 'available',
-          })
-          await profile.save()
+
+        if (role.slug === 'seller') {
+          await user.preload('sellerProfile')
+
+          if (!user.sellerProfile) {
+            const profile = await user.related('sellerProfile').create({
+              status: 'available',
+            })
+            await profile.save()
+          }
         }
       } else {
         await user.related('roles').detach([role.id])
+
+        if (role.slug === 'seller') {
+          await user.preload('sellerProfile')
+
+          if (user.sellerProfile) {
+            await user.sellerProfile.delete()
+          }
+        }
       }
 
       return response.ok({})
