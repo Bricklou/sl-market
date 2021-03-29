@@ -27,7 +27,7 @@ export default class AuthController {
    *
    * @param {string} core
    */
-  public async loginWithToken({ auth, request, response }: HttpContextContract) {
+  public async loginWithToken({ auth, request, response }: HttpContextContract): Promise<void> {
     const data = await request.validate({
       schema: schema.create({
         code: schema.string({
@@ -102,7 +102,7 @@ export default class AuthController {
   /**
    * Logout the user
    */
-  public async logout({ auth, response }: HttpContextContract) {
+  public async logout({ auth, response }: HttpContextContract): Promise<void> {
     await auth.logout()
     return response.ok(200)
   }
@@ -110,7 +110,7 @@ export default class AuthController {
   /**
    * Refresh the user informations and update his session
    */
-  public async refresh({ auth, response }: HttpContextContract) {
+  public async refresh({ auth, response }: HttpContextContract): Promise<void> {
     try {
       await auth.authenticate()
       if (auth.user) {
@@ -133,7 +133,7 @@ export default class AuthController {
   /**
    * Fetch the user informations is logged-in
    */
-  public async get({ auth, response }: HttpContextContract) {
+  public async get({ auth, response }: HttpContextContract): Promise<void> {
     if (auth.user) {
       await auth.user.preload('roles', async (query) => {
         await query.preload('permissions')

@@ -3,7 +3,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class Permissions extends BaseSchema {
   protected tableName = 'permissions'
 
-  public async up() {
+  public async up(): Promise<void> {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('name').notNullable()
@@ -12,7 +12,7 @@ export default class Permissions extends BaseSchema {
     })
   }
 
-  public async down() {
+  public async down(): Promise<void> {
     this.schema.dropTable(this.tableName)
   }
 }

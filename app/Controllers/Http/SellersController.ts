@@ -11,7 +11,7 @@ export default class SellersController {
    *
    * @param {string} id User ID
    */
-  public async getSellerStatus({ request, response, auth }: HttpContextContract) {
+  public async getSellerStatus({ request, response, auth }: HttpContextContract): Promise<void> {
     const id = request.input('id', auth.user?.id)
 
     if (id) {
@@ -32,7 +32,7 @@ export default class SellersController {
    * Update seller status
    * @param {string} status The new status for the seller
    */
-  public async updateSellerStatus({ request, response, auth }: HttpContextContract) {
+  public async updateSellerStatus({ request, response, auth }: HttpContextContract): Promise<void> {
     const data = await request.validate({
       schema: schema.create({
         status: schema.enum(['available', 'unavailable', 'vacation'] as const),

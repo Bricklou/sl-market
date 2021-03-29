@@ -15,7 +15,7 @@ export default class AdminsController {
    *
    * An internal server error (500) will be thrown if something went wrong.
    */
-  public async stats({ response }: HttpContextContract) {
+  public async stats({ response }: HttpContextContract): Promise<void> {
     try {
       // Fetch users count
       const usersCount = await User.query().count('id', 'c').first()
@@ -46,7 +46,7 @@ export default class AdminsController {
    *
    * An internal server error (500) will be thrown if something went wrong.
    */
-  public async getUsers({ response, request, logger }: HttpContextContract) {
+  public async getUsers({ response, request, logger }: HttpContextContract): Promise<void> {
     const page = request.input('page', 1)
     const search = request.input('search', null)
     try {
@@ -74,7 +74,7 @@ export default class AdminsController {
    *
    * @param {string} id The user ID
    */
-  public async deleteUser({ auth, response, request }: HttpContextContract) {
+  public async deleteUser({ auth, response, request }: HttpContextContract): Promise<void> {
     const userId = request.input('id')
 
     if (!userId) {
@@ -107,7 +107,7 @@ export default class AdminsController {
    * @param {string} role The role slug
    * @param {boolean} state If true, the role is added to the user. Otherwise, it is removed.
    */
-  public async updateUserRole({ request, response, auth }: HttpContextContract) {
+  public async updateUserRole({ request, response, auth }: HttpContextContract): Promise<void> {
     const data = await request.validate({
       schema: schema.create({
         userId: schema.string(

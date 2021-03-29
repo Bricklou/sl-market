@@ -7,7 +7,10 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
  * A 401 (unauthorized) response will be thrown if one of them is not verified.
  */
 export default class Admin {
-  public async handle({ auth, response }: HttpContextContract, next: () => Promise<void>) {
+  public async handle(
+    { auth, response }: HttpContextContract,
+    next: () => Promise<void>
+  ): Promise<void> {
     if (auth.isAuthenticated && auth.user!.hasRole('admin')) {
       return next()
     }
