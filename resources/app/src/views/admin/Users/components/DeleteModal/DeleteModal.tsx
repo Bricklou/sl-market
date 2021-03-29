@@ -16,8 +16,11 @@ interface DeleteModalProps {
   loading: boolean
 }
 
+/**
+ * Delete modal render a simple modal and emit an event depending on the user choice.
+ */
 export default class DeleteModal extends Component<DeleteModalProps> {
-  render() {
+  public render(): JSX.Element {
     return (
       <Modal
         title={`Supprimer le compte de ${this.props.user.username} ?`}

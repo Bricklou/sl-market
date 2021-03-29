@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 export default class NotFound extends Component {
-  render() {
+  public render(): JSX.Element {
     return (
       <main id="not-found">
         <h1>Page not found</h1>

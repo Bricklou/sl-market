@@ -5,9 +5,10 @@ import Loading from '../../../components/base/Loading/Loading'
 import { RootState } from '../../../store'
 import auth from '../../../utils/auth'
 import './authentication.scss'
-import { login, logout } from '../../../store/modules/user'
+import { login, logout, UserInfo } from '../../../store/modules/user'
+import { CombinedState } from 'redux'
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): CombinedState<{ user?: UserInfo }> => ({
   user: state.user.user,
 })
 
@@ -21,17 +22,23 @@ interface AuthenticationState {
   errors: string[]
 }
 
+/**
+ * Authentication page is there as fallback for Discord OAuth2
+ */
 class Authentication extends Component<
   AuthenticationProps & RouteComponentProps,
   AuthenticationState
 > {
-  readonly state: AuthenticationState = {
+  public readonly state: AuthenticationState = {
     loading: true,
     btnDisabled: true,
     errors: [],
   }
 
-  async componentDidMount() {
+  /**
+   * Try to auth the user with the `code` query params when the page is loaded.
+   */
+  public async componentDidMount(): Promise<void> {
     const queries = new URLSearchParams(this.props.location.search)
     const code = queries.get('code')
     if (code) {
@@ -60,7 +67,7 @@ class Authentication extends Component<
     }
   }
 
-  private showError() {
+  private showError(): JSX.Element | undefined {
     if (this.state.errors) {
       return (
         <div className="errors">
@@ -73,11 +80,11 @@ class Authentication extends Component<
     }
   }
 
-  private showLoading() {
+  private showLoading(): JSX.Element | undefined {
     return <Loading className="mx-auto" />
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <main id="authentication">
         <div className="box">

@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { RootState } from '../../../store'
 import Loading from '../../../components/base/Loading/Loading'
 import DeleteModal, { ModalResponses } from './components/DeleteModal/DeleteModal'
+import { CombinedState } from 'redux'
 
 type ApiUserResponse = ApiPagination<UserInfo>
 
@@ -23,14 +24,17 @@ interface UsersState {
   deleteLoading: boolean
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): CombinedState<{ user?: UserInfo }> => ({
   user: state.user.user,
 })
 
 type UserProps = ReturnType<typeof mapStateToProps>
 
+/**
+ * Users page will allow admins to manage registered users of the application
+ */
 class Users extends Component<UserProps, UsersState> {
-  state: UsersState = {
+  public state: UsersState = {
     users: [],
     meta: undefined,
     search: '',
@@ -38,7 +42,9 @@ class Users extends Component<UserProps, UsersState> {
     selectedUser: undefined,
     deleteLoading: false,
   }
-  async componentDidMount() {
+
+  // Fetch the user list when the page is rendered.
+  public async componentDidMount(): Promise<void> {
     try {
       await this.fetchUserList()
     } catch (error) {
@@ -46,7 +52,11 @@ class Users extends Component<UserProps, UsersState> {
     }
   }
 
-  private async fetchUserList() {
+  /**
+   * Fetch user list.
+   * Store users list and pagination metadata to the state
+   */
+  private async fetchUserList(): Promise<void> {
     const result = await api.get<ApiUserResponse>('/admin/users', {
       params: {
         page: this.state.page,
@@ -59,13 +69,14 @@ class Users extends Component<UserProps, UsersState> {
     })
   }
 
-  private showUserList() {
+  private showUserList(): JSX.Element[] | undefined {
     if (this.state.users && this.props.user) {
       return this.state.users.map((user, index) => {
         return (
           <UserItem
             user={user}
             key={index}
+            /* Prevent user to delete itself */
             canDelete={this.props.user && user.id !== this.props.user.id}
             onDelete={() => {
               this.setState({
@@ -78,17 +89,27 @@ class Users extends Component<UserProps, UsersState> {
     }
   }
 
-  private async deleteUser(user: UserInfo) {
+  /**
+   * Delete a provided user
+   *
+   * @param user The user to delete
+   */
+  private async deleteUser(user: UserInfo): Promise<void> {
     try {
       await api.delete('/admin/user', {
         params: {
           id: user.id,
         },
       })
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  private showDeleteModal() {
+  /**
+   * Render the delete modal if a user is selected.
+   */
+  private showDeleteModal(): JSX.Element | undefined {
     if (this.state.selectedUser) {
       const u = this.state.selectedUser
       return (
@@ -114,7 +135,7 @@ class Users extends Component<UserProps, UsersState> {
     }
   }
 
-  private showTable() {
+  private showTable(): JSX.Element | undefined {
     if (this.state.meta) {
       return (
         <div className="table">
@@ -149,11 +170,13 @@ class Users extends Component<UserProps, UsersState> {
     }
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <div id="admin-user">
         <header>
           <h2 className="title">Utilisateurs</h2>
+
+          {/* Header form to search user in the whole list */}
           <div className="form-container">
             <form
               onSubmit={(event) => {
@@ -179,7 +202,9 @@ class Users extends Component<UserProps, UsersState> {
             </form>
           </div>
         </header>
+        {/* The paginated users list */}
         <div className="table-container">{this.showTable()}</div>
+
         {this.showDeleteModal()}
       </div>
     )

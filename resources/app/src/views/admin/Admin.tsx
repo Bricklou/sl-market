@@ -7,8 +7,11 @@ import Users from './Users/Users'
 import Roles from './Roles/Roles'
 import NotFound from '../base/not_found/NotFound'
 
+/**
+ * Admin page layout containing sidemenu and sub-router to display other pages
+ */
 class Admin extends Component<RouteComponentProps> {
-  render() {
+  public render(): JSX.Element {
     const { path, url } = this.props.match
     return (
       <main id="admin">

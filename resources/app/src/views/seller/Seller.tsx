@@ -15,12 +15,18 @@ interface ApiStatusResponse {
   status: 'available' | 'unavailable' | 'vacation'
 }
 
+/**
+ * Seller panel layout page
+ */
 class Seller extends Component<RouteComponentProps, SellerState> {
   public state: SellerState = {
     dropOpened: false,
   }
 
-  async componentDidMount() {
+  /**
+   * Fetch the seller status when the page is loaded
+   */
+  public async componentDidMount(): Promise<void> {
     try {
       const response = await api.get<ApiStatusResponse>('/seller/status')
 
@@ -32,13 +38,17 @@ class Seller extends Component<RouteComponentProps, SellerState> {
     }
   }
 
-  private toggleStatusButton() {
+  private toggleStatusButton(): void {
     this.setState({
       dropOpened: !this.state.dropOpened,
     })
   }
 
-  private async setStatus(status: string) {
+  /**
+   * Updated the user status and refresh it on the page
+   * @param status New status
+   */
+  private async setStatus(status: string): Promise<void> {
     try {
       const response = await api.put<ApiStatusResponse>('/seller/status', {
         status,
@@ -54,24 +64,27 @@ class Seller extends Component<RouteComponentProps, SellerState> {
     }
   }
 
-  private showStatusMenu() {
+  /**
+   * Seller status menu list
+   */
+  private showStatusMenu(): JSX.Element | undefined {
     if (this.state.dropOpened) {
       return (
         <ul className="status-list">
           <li>
-            <button onClick={() => this.setStatus('available')}>
+            <button onClick={() => void this.setStatus('available')}>
               <span className="status-indicator status-available"></span>
               <p>Disponible</p>
             </button>
           </li>
           <li>
-            <button onClick={() => this.setStatus('unavailable')}>
+            <button onClick={() => void this.setStatus('unavailable')}>
               <span className="status-indicator status-unavailable"></span>
               <p>Indisponible</p>
             </button>
           </li>
           <li>
-            <button onClick={() => this.setStatus('vacation')}>
+            <button onClick={() => void this.setStatus('vacation')}>
               <span className="status-indicator status-vacation"></span>
               <p>En vacance</p>
             </button>
@@ -81,7 +94,7 @@ class Seller extends Component<RouteComponentProps, SellerState> {
     }
   }
 
-  private get status() {
+  private get status(): string {
     switch (this.state.status) {
       case 'available':
         return 'status-available'
@@ -94,7 +107,7 @@ class Seller extends Component<RouteComponentProps, SellerState> {
     }
   }
 
-  render() {
+  public render(): JSX.Element {
     const { path, url } = this.props.match
 
     return (

@@ -10,18 +10,26 @@ type ButtonProps = {
   onClick?: () => void
 }
 
+/**
+ * Button component is only an stylized button with the possibility to add an icon.
+ *
+ * The `loading` props has a higher priority over `icon`. If `loading` is enabled, it will
+ * overwrite the rendered `icon`.
+ */
 class Button extends Component<ButtonProps> {
-  showIcon() {
+  private showIcon(): JSX.Element | undefined {
     if (this.props.icon) {
       return <i className={this.props.icon} />
     }
   }
-  showLoading() {
+
+  private showLoading(): JSX.Element | undefined {
     if (this.props.loading) {
       return <i className="loading-icon fas fa-circle-notch"></i>
     }
   }
-  render() {
+
+  public render(): JSX.Element {
     return (
       <button
         className={`button ${this.props.className || ''}`}

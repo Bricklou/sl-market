@@ -4,12 +4,18 @@ import logo from '../../assets/img/icon.svg'
 import { Link, NavLink, RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { RootState } from '../../store'
-import { logout } from '../../store/modules/user'
+import { logout, UserInfo } from '../../store/modules/user'
 import { withRouter } from 'react-router-dom'
 import auth from '../../utils/auth'
 import Acl from '../../utils/Acl'
+import { CombinedState } from 'redux'
 
-const mapStateToProps = (state: RootState) => ({
+/**
+ * Fetch user informations from store
+ */
+const mapStateToProps = (
+  state: RootState
+): CombinedState<{ user?: UserInfo; isAuthenticated: boolean | null }> => ({
   user: state.user.user,
   isAuthenticated: state.user.isAuthenticated,
 })
@@ -20,8 +26,14 @@ type NavBarProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   RouteComponentProps
 
+/**
+ * Navbar component
+ */
 class NavBar extends Component<NavBarProps> {
-  private async logout(event: React.MouseEvent<HTMLButtonElement>) {
+  /**
+   * Try to logout the user and redirect him to the home route
+   */
+  private async logout(event: React.MouseEvent<HTMLButtonElement>): Promise<void> {
     event.preventDefault()
 
     try {
@@ -35,14 +47,20 @@ class NavBar extends Component<NavBarProps> {
     this.props.history.push('/')
   }
 
-  get userAvatar() {
+  /**
+   * Get the current user avatar url
+   */
+  private get userAvatar(): string {
     if (this.props.user) {
       return `https://cdn.discordapp.com/avatars/${this.props.user.id}/${this.props.user.avatar}.png`
     }
     return ''
   }
 
-  private showSellerLinks() {
+  /**
+   * If the user is authenticated and have permissions to access the seller panel, then render sellers links.
+   */
+  private showSellerLinks(): JSX.Element[] | undefined {
     if (this.props.user && Acl.can(this.props.user, ['access:sellerPanel'])) {
       const links = {
         '/mes-services': 'Mes services',
@@ -55,12 +73,13 @@ class NavBar extends Component<NavBarProps> {
           </li>
         )
       })
-    } else {
-      return null
     }
   }
 
-  private showAdminLinks() {
+  /**
+   * If user is authenticated and have permissions to access the admin panel, then render admin links
+   */
+  private showAdminLinks(): JSX.Element[] | undefined {
     if (this.props.user && Acl.can(this.props.user, ['access:adminPanel'])) {
       const links = {
         '/administration': 'Administration',
@@ -76,7 +95,11 @@ class NavBar extends Component<NavBarProps> {
     }
   }
 
-  private showAuthButton() {
+  /**
+   * If the user is authenticated, show logout button and others links.
+   * Otherwise, show an auth button.
+   */
+  private showAuthButton(): JSX.Element {
     if (this.props.isAuthenticated) {
       return (
         <div className="navbar-dropdown">
@@ -104,7 +127,7 @@ class NavBar extends Component<NavBarProps> {
     }
   }
 
-  render(): JSX.Element {
+  public render(): JSX.Element {
     return (
       <nav id="navbar">
         <div className="nav-container">

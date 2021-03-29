@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
+import { CombinedState } from 'redux'
 import Button from '../../../components/base/Button/Button'
 import Loading from '../../../components/base/Loading/Loading'
 import Paginator from '../../../components/base/Paginator/Paginator'
@@ -20,20 +21,24 @@ interface RolesState {
   page: number
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): CombinedState<{ user?: UserInfo }> => ({
   user: state.user.user,
 })
 type RolesProps = ReturnType<typeof mapStateToProps>
 
+/**
+ * Role page allow admins to manage user roles.
+ */
 class Roles extends Component<RolesProps, RolesState> {
-  state: RolesState = {
+  public readonly state: RolesState = {
     users: [],
     meta: undefined,
     search: '',
     page: 1,
   }
 
-  async componentDidMount() {
+  // Fetch the user list when the page is rendered.
+  public async componentDidMount(): Promise<void> {
     try {
       await this.fetchUserList()
     } catch (error) {
@@ -41,7 +46,11 @@ class Roles extends Component<RolesProps, RolesState> {
     }
   }
 
-  private async fetchUserList() {
+  /**
+   * Fetch user list.
+   * Store users list and pagination metadata to the state
+   */
+  private async fetchUserList(): Promise<void> {
     const result = await api.get<ApiRoleResponse>('/admin/users', {
       params: {
         page: this.state.page,
@@ -54,7 +63,14 @@ class Roles extends Component<RolesProps, RolesState> {
     })
   }
 
-  private async updateUserRole(userId: string, roleName: string, state: boolean) {
+  /**
+   * Update the role of a provided user.
+   *
+   * @param userId User ID of the user you want to update
+   * @param roleName Role slug you want to update
+   * @param state If `true`, the role will be added, otherwise it will be removed
+   */
+  private async updateUserRole(userId: string, roleName: string, state: boolean): Promise<void> {
     try {
       await api.put('/admin/user/role', {
         userId,
@@ -67,7 +83,7 @@ class Roles extends Component<RolesProps, RolesState> {
     }
   }
 
-  private showUserList() {
+  private showUserList(): JSX.Element[] | undefined {
     if (this.state.users && this.props.user) {
       const u = this.props.user
       return this.state.users.map((user, index) => {
@@ -75,6 +91,7 @@ class Roles extends Component<RolesProps, RolesState> {
           <RoleItem
             user={user}
             key={index}
+            /* Prevent user to self update some roles */
             canChange={user.id !== u.id}
             onChange={async (key, value) => {
               await this.updateUserRole(user.id, key, value)
@@ -85,7 +102,7 @@ class Roles extends Component<RolesProps, RolesState> {
     }
   }
 
-  private showTable() {
+  private showTable(): JSX.Element | undefined {
     if (this.state.meta) {
       return (
         <div className="table">
@@ -119,12 +136,13 @@ class Roles extends Component<RolesProps, RolesState> {
     }
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <div id="admin-roles">
         <header>
           <h2 className="title">Rôles</h2>
 
+          {/* Header form to search user in the whole list */}
           <div className="form-container">
             <form
               onSubmit={(event) => {
@@ -150,6 +168,7 @@ class Roles extends Component<RolesProps, RolesState> {
             </form>
           </div>
         </header>
+        {/* The paginated users list */}
         <div className="table-container">{this.showTable()}</div>
       </div>
     )

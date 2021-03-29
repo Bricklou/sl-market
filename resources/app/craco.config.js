@@ -1,15 +1,23 @@
 const { whenProd } = require('@craco/craco')
 const path = require('path')
 
+/**
+ * Reconfigure React app project
+ */
 module.exports = {
   style: {
     postcss: {
+      // Use tailwindcss with postcss
       plugins: [require('tailwindcss'), require('autoprefixer')],
     },
   },
 
   webpack: {
     configure: (webpackConfig, { paths }) => {
+      /**
+       * When we build the project for production, we want to output it in the public folder in the root of the repos (`/public/`)
+       * We also want to output the index file to `resources/views/app.edge`.
+       */
       whenProd(() => {
         paths.appBuild = path.resolve(__dirname, '../../public')
         webpackConfig.output.path = paths.appBuild

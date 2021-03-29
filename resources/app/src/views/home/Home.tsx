@@ -2,7 +2,7 @@ import { Component } from 'react'
 import './home.scss'
 
 export default class Home extends Component {
-  render() {
+  public render(): JSX.Element {
     return (
       <main id="home">
         <section className="banner">

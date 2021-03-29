@@ -1,11 +1,8 @@
 import axios from 'axios'
 
-export interface APIError {
-  rule: string
-  field: string
-  message: string
-}
-
+/**
+ * The Axios instance
+ */
 const api = axios.create({
   baseURL: '/api',
 })

@@ -5,7 +5,7 @@ interface LoadingProps {
 }
 
 class Loading extends Component<LoadingProps> {
-  render() {
+  public render(): JSX.Element {
     return (
       <div className={this.props.className}>
         <h1>Loading</h1>

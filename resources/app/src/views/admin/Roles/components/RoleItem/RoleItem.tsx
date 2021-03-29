@@ -11,28 +11,29 @@ interface UserItemProps {
 }
 
 export default class UserItem extends Component<UserItemProps> {
-  get userAvatar() {
+  // Fetch the user avatar
+  private get userAvatar(): string {
     if (this.props.user) {
       return `https://cdn.discordapp.com/avatars/${this.props.user.id}/${this.props.user.avatar}.png`
     }
     return ''
   }
 
-  private formatDate(date: string) {
+  private formatDate(date: string): string {
     return format(new Date(date), 'P', {
       locale: fr,
     })
   }
 
-  get hasAdminRole() {
+  private get hasAdminRole(): boolean {
     return this.props.user.roles.some((r) => r.slug === 'admin')
   }
 
-  get hasSellerRole() {
+  private get hasSellerRole(): boolean {
     return this.props.user.roles.some((r) => r.slug === 'seller')
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <tr className="user-item">
         <td className="user-profile">
@@ -43,10 +44,12 @@ export default class UserItem extends Component<UserItemProps> {
         </td>
         <td>
           <p className="text-gray-900 whitespace-no-wrap">
+            {/* Render an human readable date */}
             {this.formatDate(this.props.user.last_login)}
           </p>
         </td>
         <td>
+          {/* If the user is not allowed to updated the role, then the checkbox will be disabled  */}
           <Checkbox
             id={`admin-${this.props.user.id}`}
             checked={this.hasAdminRole}
