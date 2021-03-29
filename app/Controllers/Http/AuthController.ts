@@ -5,9 +5,13 @@ import Env from '@ioc:Adonis/Core/Env'
 import DiscordOAuth2 from 'discord-oauth2'
 import { DateTime } from 'luxon'
 
+/**
+ * Auth controller will contain all controllers related to the authentication.
+ */
 export default class AuthController {
   private oauth!: DiscordOAuth2
 
+  // When the class is initilized, we setup the OAuth2 for the user auth
   constructor() {
     this.oauth = new DiscordOAuth2({
       clientId: Env.get('DISCORD_ID'),
@@ -15,6 +19,14 @@ export default class AuthController {
       redirectUri: Env.get('DISCORD_REDIRECT_URI'),
     })
   }
+
+  /**
+   * Fallback for the discord OAuth2 redirection.
+   * If the user exists, just login it and update his last login info.
+   * Otherwise, create a new user.
+   *
+   * @param {string} core
+   */
   public async loginWithToken({ auth, request, response }: HttpContextContract) {
     const data = await request.validate({
       schema: schema.create({
@@ -63,6 +75,7 @@ export default class AuthController {
       user.id = discordUser.id.toString()
       await user.save()
 
+      // Auth the user and update all his informations from the Discord account
       await auth.loginViaId(user.id.toString())
       auth.user!.lastLogin = DateTime.now()
       auth.user!.username = discordUser.username
@@ -86,11 +99,17 @@ export default class AuthController {
     return response.unauthorized({})
   }
 
+  /**
+   * Logout the user
+   */
   public async logout({ auth, response }: HttpContextContract) {
     await auth.logout()
     return response.ok(200)
   }
 
+  /**
+   * Refresh the user informations and update his session
+   */
   public async refresh({ auth, response }: HttpContextContract) {
     try {
       await auth.authenticate()
@@ -111,6 +130,9 @@ export default class AuthController {
     return response.unauthorized({})
   }
 
+  /**
+   * Fetch the user informations is logged-in
+   */
   public async get({ auth, response }: HttpContextContract) {
     if (auth.user) {
       await auth.user.preload('roles', async (query) => {

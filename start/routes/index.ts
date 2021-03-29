@@ -20,12 +20,15 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+// All route which doesn't start with `/api`
 Route.any('/:any?', 'ViewsController.app').where('any', '^(?!api).*$')
 
+// This routes group is used to contains all api request for the app's frontend.
 Route.group(() => {
   require('./auth')
   require('./admin')
   require('./seller')
 }).prefix('/api')
 
+// All route which doesn't match with the routes below return a 404 response
 Route.any('*', async ({ response }) => response.notFound({}))
