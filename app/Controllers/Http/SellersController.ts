@@ -2,8 +2,16 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
+/**
+ * Seller controller will contain all controllers related to the authentication.
+ */
 export default class SellersController {
-  public async getSellerStatus({ request, response, auth }: HttpContextContract) {
+  /**
+   * Get seller status between `available`, `unavalable` and `vacations`.
+   *
+   * @param {string} id User ID
+   */
+  public async getSellerStatus({ request, response, auth }: HttpContextContract): Promise<void> {
     const id = request.input('id', auth.user?.id)
 
     if (id) {
@@ -20,7 +28,11 @@ export default class SellersController {
     return response.methodNotAllowed()
   }
 
-  public async updateSellerStatus({ request, response, auth }: HttpContextContract) {
+  /**
+   * Update seller status
+   * @param {string} status The new status for the seller
+   */
+  public async updateSellerStatus({ request, response, auth }: HttpContextContract): Promise<void> {
     const data = await request.validate({
       schema: schema.create({
         status: schema.enum(['available', 'unavailable', 'vacation'] as const),

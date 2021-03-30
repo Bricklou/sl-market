@@ -10,8 +10,11 @@ type CheckboxProps = {
   disabled?: boolean
 }
 
+/**
+ * Checkbox component is a stylized checkbox adapted for React
+ */
 class Checkbox extends Component<CheckboxProps> {
-  render() {
+  public render(): JSX.Element {
     return (
       <div className={`checkbox-field ${this.props.className || ''}`}>
         <input

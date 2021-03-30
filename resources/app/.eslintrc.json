@@ -1,7 +1,24 @@
 {
-  "extends": ["prettier", "react-app", "plugin:jsx-a11y/recommended"],
+  "extends": ["eslint:recommended", "prettier", "react-app", "plugin:jsx-a11y/recommended"],
   "plugins": ["prettier", "jsx-a11y"],
   "rules": {
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "accessor-pairs": ["error"],
+    "@typescript-eslint/explicit-member-accessibility": ["error"],
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true,
+        "allowConciseArrowFunctionExpressionsStartingWithVoid": true
+      }
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".tsx"]
+      }
+    ]
   }
 }

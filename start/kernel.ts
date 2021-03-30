@@ -39,8 +39,12 @@ Server.middleware.register(['Adonis/Core/BodyParserMiddleware', 'App/Middleware/
 |
 */
 Server.middleware.registerNamed({
+  // Check if the user is authenticated
   auth: 'App/Middleware/Auth',
+  // Check if the user access as guest
   guest: 'App/Middleware/Guest',
+  // Check if the user has the `admin` role
   admin: 'App/Middleware/Admin',
+  // Check if the user has the `seller` role
   seller: 'App/Middleware/Seller',
 })

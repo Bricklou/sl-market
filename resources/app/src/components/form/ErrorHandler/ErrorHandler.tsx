@@ -5,8 +5,12 @@ type ErrorHandlerProps = {
   errors: string[]
 }
 
+/**
+ * Error Handler component can contains a form input (input, checkbox, textarea, ...) and
+ * render an list of errors if errors are provided.
+ */
 class ErrorHandler extends Component<ErrorHandlerProps> {
-  showErrors() {
+  private showErrors(): JSX.Element[] | undefined {
     if (this.props.errors) {
       return this.props.errors.map((item, index) => {
         return (
@@ -17,7 +21,8 @@ class ErrorHandler extends Component<ErrorHandlerProps> {
       })
     }
   }
-  render() {
+
+  public render(): JSX.Element {
     return (
       <div className={this.props.errors ? 'error' : ''}>
         {this.props.children}

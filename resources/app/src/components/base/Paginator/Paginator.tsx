@@ -9,10 +9,13 @@ interface PaginatorProps {
   maxNeighbours?: number
 }
 
+/**
+ * Paginator component simplify the pagination link rendering using provided backend's paginator informations.
+ */
 class Paginator extends Component<PaginatorProps> {
-  private totalPages = Math.ceil(this.props.totalRecords / this.props.pageLimit)
+  private readonly totalPages = Math.ceil(this.props.totalRecords / this.props.pageLimit)
 
-  showPrevBtn() {
+  private showPrevBtn(): JSX.Element | undefined {
     if (this.props.currentPage > 1) {
       return (
         <button>
@@ -22,7 +25,7 @@ class Paginator extends Component<PaginatorProps> {
     }
   }
 
-  showNextBtn() {
+  private showNextBtn(): JSX.Element | undefined {
     if (this.props.currentPage < this.totalPages) {
       return (
         <button>
@@ -32,7 +35,7 @@ class Paginator extends Component<PaginatorProps> {
     }
   }
 
-  render() {
+  public render(): JSX.Element {
     const pages = []
 
     const nbBlocks = this.props.maxNeighbours || 4

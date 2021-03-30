@@ -2,7 +2,7 @@ import { Component } from 'react'
 import './home.scss'
 
 class SellerHome extends Component {
-  render() {
+  public render(): JSX.Element {
     return (
       <div id="seller-home">
         <header>

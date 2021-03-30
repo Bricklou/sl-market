@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import './footer.scss'
 import '../../components/base/Button/button.scss'
 
+/**
+ * Footer component
+ */
 export default class Footer extends Component {
-  render() {
+  public render(): JSX.Element {
     return (
       <footer id="footer">
         <section className="footer-content">

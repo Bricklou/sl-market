@@ -14,10 +14,14 @@ export interface ModalProps {
   icon?: string
 }
 
-class Modal<T extends ModalProps> extends Component<T, {}> {
-  private overlayRef = React.createRef<HTMLDivElement>()
+/**
+ * Modal component is mainly a base structure for other modals.
+ * It provide render and methods.
+ */
+class Modal extends Component<ModalProps, {}> {
+  private readonly overlayRef = React.createRef<HTMLDivElement>()
 
-  private close(event: MouseEvent) {
+  private close(event: MouseEvent): void {
     event.preventDefault()
 
     if (event.target === this.overlayRef.current) {
@@ -25,19 +29,19 @@ class Modal<T extends ModalProps> extends Component<T, {}> {
     }
   }
 
-  componentDidMount() {
+  public componentDidMount(): void {
     if (this.overlayRef.current) {
       this.overlayRef.current.addEventListener('click', this.close.bind(this), true)
     }
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount(): void {
     if (this.overlayRef.current) {
       this.overlayRef.current.removeEventListener('click', this.close.bind(this))
     }
   }
 
-  private showIcon() {
+  private showIcon(): JSX.Element | undefined {
     if (this.props.icon) {
       return (
         <span className="mt-4 w-12 text-5xl h-14 m-auto text-indigo-500 text-center">
@@ -47,7 +51,7 @@ class Modal<T extends ModalProps> extends Component<T, {}> {
     }
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <div className="modal-container" ref={this.overlayRef}>
         <div
@@ -64,23 +68,6 @@ class Modal<T extends ModalProps> extends Component<T, {}> {
             </div>
           </div>
         </div>
-        {/* <div className="modal">
-          <header>
-            <div className="title">{this.props.title}</div>
-            <button
-              className="close"
-              onClick={(event) => {
-                event.stopPropagation()
-                event.preventDefault()
-                this.props.onClose()
-              }}
-            >
-              <i className="fas fa-times"></i>
-            </button>
-          </header>
-          <main>{this.props.children.main}</main>
-          <footer>{this.props.children.footer}</footer>
-        </div> */}
       </div>
     )
   }

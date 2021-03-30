@@ -3,7 +3,7 @@ import Permission from 'App/Models/Permission'
 import Role from 'App/Models/Role'
 
 export default class AclSeeder extends BaseSeeder {
-  public async run() {
+  public async run(): Promise<void> {
     // Write your database queries inside the run method
     const adminRole = await Role.updateOrCreate(
       {

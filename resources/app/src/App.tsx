@@ -6,7 +6,7 @@ import NavBar from './components/NavBar/NavBar'
 import Main from './routes'
 
 class App extends Component {
-  render() {
+  public render(): JSX.Element {
     return (
       <BrowserRouter>
         <NavBar />

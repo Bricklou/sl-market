@@ -12,8 +12,11 @@ type InputProps = {
   disabled?: boolean
 }
 
+/**
+ * Input component is a stylised input with icon support
+ */
 class Input extends Component<InputProps> {
-  showIcon(): JSX.Element | undefined {
+  private showIcon(): JSX.Element | undefined {
     if (this.props.icon) {
       return (
         <span className="icon">
@@ -22,7 +25,8 @@ class Input extends Component<InputProps> {
       )
     }
   }
-  render() {
+
+  public render(): JSX.Element {
     return (
       <div
         className={`input-field ${this.props.className || ''} ${

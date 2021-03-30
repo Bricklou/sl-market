@@ -24,7 +24,10 @@ export default class AdminHome extends Component<{}, AdminHomeState> {
     commandsCount: 0,
   }
 
-  async componentDidMount() {
+  /**
+   * When component mounted, fetch users statistics to render them.
+   */
+  public async componentDidMount(): Promise<void> {
     try {
       const result = await api.get<ApiCountResponse>('/admin/stats')
 
@@ -39,8 +42,8 @@ export default class AdminHome extends Component<{}, AdminHomeState> {
       console.error(error)
     }
   }
-  render() {
-    const countDuration = 2
+  public render(): JSX.Element {
+    const COUNT_DURATION = 2
     return (
       <div id="admin-home">
         <header>
@@ -51,7 +54,7 @@ export default class AdminHome extends Component<{}, AdminHomeState> {
             <div className="icon">
               <i className="fas fa-users"></i>
               <p className="number">
-                <CountUp end={this.state.usersCount} duration={countDuration} />
+                <CountUp end={this.state.usersCount} duration={COUNT_DURATION} />
               </p>
             </div>
             <h1 className="card-title">Nombre d'utilisateurs</h1>
@@ -62,7 +65,7 @@ export default class AdminHome extends Component<{}, AdminHomeState> {
               <i className="fas fa-users"></i>
             </div>
             <p className="number">
-              <CountUp end={this.state.sellersCount} duration={countDuration} />
+              <CountUp end={this.state.sellersCount} duration={COUNT_DURATION} />
             </p>
             <h1 className="card-title">Nombre de vendeurs</h1>
           </article>
@@ -72,7 +75,7 @@ export default class AdminHome extends Component<{}, AdminHomeState> {
               <i className="fas fa-shopping-bag"></i>
             </div>
             <p className="number">
-              <CountUp end={this.state.commandsCount} duration={countDuration} />
+              <CountUp end={this.state.commandsCount} duration={COUNT_DURATION} />
             </p>
             <h1 className="card-title">Nombre de commandes en cours</h1>
           </article>

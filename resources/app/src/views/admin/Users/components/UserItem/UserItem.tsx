@@ -11,20 +11,21 @@ interface UserItemProps {
 }
 
 export default class UserItem extends Component<UserItemProps> {
-  get userAvatar() {
+  // Fetch the user avatar
+  private get userAvatar(): string {
     if (this.props.user) {
       return `https://cdn.discordapp.com/avatars/${this.props.user.id}/${this.props.user.avatar}.png`
     }
     return ''
   }
 
-  private formatDate(date: string) {
+  private formatDate(date: string): string {
     return format(new Date(date), 'P', {
       locale: fr,
     })
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <tr className="user-item">
         <td className="user-profile">
@@ -36,17 +37,20 @@ export default class UserItem extends Component<UserItemProps> {
         <td className="roles">
           <ul>
             {this.props.user.roles.map((role, index) => (
+              // Display user roles
               <li key={index}>{role.name}</li>
             ))}
           </ul>
         </td>
         <td>
           <p className="text-gray-900 whitespace-no-wrap">
+            {/* Render a human readable date */}
             {this.formatDate(this.props.user.created_at)}
           </p>
         </td>
         <td>
           <p className="text-gray-900 whitespace-no-wrap">
+            {/* Render a human readable date */}
             {this.formatDate(this.props.user.last_login)}
           </p>
         </td>
@@ -56,7 +60,11 @@ export default class UserItem extends Component<UserItemProps> {
       </tr>
     )
   }
-  showDeleteBtn() {
+
+  /**
+   * Render a delete button only if the user has the permission to.
+   */
+  private showDeleteBtn(): JSX.Element | undefined {
     if (this.props.canDelete) {
       return (
         <button className="delete" onClick={(e) => this.props.onDelete(e)}>

@@ -5,7 +5,7 @@ import Home from '../views/home/Home'
 import NotFound from '../views/base/not_found/NotFound'
 import auth from '../utils/auth'
 import { RootState } from '../store'
-import { login, logout } from '../store/modules/user'
+import { login, logout, UserInfo } from '../store/modules/user'
 
 import LoadingView from '../views/base/loading_view/LoadingView'
 import { Component } from 'react'
@@ -13,8 +13,14 @@ import { connect } from 'react-redux'
 import Acl from '../utils/Acl'
 import Admin from '../views/admin/Admin'
 import Seller from '../views/seller/Seller'
+import { CombinedState } from 'redux'
 
-const mapStateToProps = (state: RootState) => ({
+/**
+ * fetch current user from store
+ */
+const mapStateToProps = (
+  state: RootState
+): CombinedState<{ user?: UserInfo; isAuthenticated: boolean | null }> => ({
   user: state.user.user,
   isAuthenticated: state.user.isAuthenticated,
 })
@@ -23,7 +29,13 @@ const mapDispatchToProps = { login, logout }
 
 type AppRouterProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps
 
+/**
+ * Application router
+ */
 class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
+  /**
+   * Silent auth guard will refresh the user every time the methods is called.
+   */
   private silentAuth: GuardFunction = async (to, from, next) => {
     try {
       const response = await auth.refresh()
@@ -34,6 +46,9 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
     next()
   }
 
+  /**
+   * Guest guard will prevent authenticated user to access the route
+   */
   private requireGuest: GuardFunction = async (to, from, next) => {
     if (!this.props.isAuthenticated) {
       next()
@@ -42,6 +57,9 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
     }
   }
 
+  /**
+   * Admin guard will prevent non-administrator to access the route
+   */
   private requireAdmin: GuardFunction = (to, from, next) => {
     if (this.props.user && Acl.can(this.props.user, ['access:adminPanel'])) {
       next()
@@ -50,6 +68,9 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
     }
   }
 
+  /**
+   * Seller guard will prevent all non-seller users
+   */
   private requireSeller: GuardFunction = (to, from, next) => {
     if (this.props.user && Acl.can(this.props.user, ['access:sellerPanel'])) {
       next()
@@ -58,7 +79,11 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
     }
   }
 
-  async componentDidMount() {
+  /**
+   * When the router start, try to resfresh the user.
+   * If auth informations are invalid, log him out.
+   */
+  public async componentDidMount(): Promise<void> {
     try {
       const response = await auth.refresh()
       this.props.login(response.data)
@@ -66,7 +91,8 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
       this.props.logout()
     }
   }
-  render() {
+
+  public render(): JSX.Element {
     return (
       <GuardProvider guards={[this.silentAuth]} loading={LoadingView}>
         <Switch>
@@ -80,7 +106,6 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
           <GuardedRoute path="/mes-services" component={Seller} guards={[this.requireSeller]} />
 
           {/* Auth routes */}
-
           <GuardedRoute
             exact
             path="/authentication"

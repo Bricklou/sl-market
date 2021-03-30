@@ -1,9 +1,24 @@
+/**
+ * User module store will allow us to store the current user throughout its navigation on the site
+ */
+
+interface Action<T extends string> {
+  type: T
+}
+
+interface ActionWithPayload<T extends string, P extends any> extends Action<T> {
+  payload: P
+}
+
 export function typedAction<T extends string>(type: T): { type: T }
 export function typedAction<T extends string, P extends any>(
   type: T,
   payload: P
 ): { type: T; payload: P }
-export function typedAction(type: string, payload?: any) {
+export function typedAction(
+  type: string,
+  payload?: any
+): Action<string> | ActionWithPayload<string, any> {
   return { type, payload }
 }
 
@@ -32,9 +47,12 @@ const initialState: UserState = {
   isAuthenticated: null,
 }
 
-export const login = (u: UserInfo) => typedAction('user/LOGIN', u)
-
-export const logout = () => typedAction('user/LOGOUT')
+export function login(u: UserInfo): ActionWithPayload<'user/LOGIN', typeof u> {
+  return typedAction('user/LOGIN', u)
+}
+export function logout(): Action<'user/LOGOUT'> {
+  return typedAction('user/LOGOUT')
+}
 
 type UserAction = ReturnType<typeof login | typeof logout>
 
