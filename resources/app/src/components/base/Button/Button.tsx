@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import './button.scss'
 
-type ButtonProps = {
+export type ButtonProps = {
   className?: string
   icon?: string
   type?: 'button' | 'submit' | 'reset'

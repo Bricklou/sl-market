@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-interface LoadingProps {
+export interface LoadingProps {
   className?: string
 }
 

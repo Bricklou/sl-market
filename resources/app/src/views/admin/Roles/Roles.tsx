@@ -118,7 +118,7 @@ class Roles extends Component<RolesProps, RolesState> {
             <tbody>{this.showUserList()}</tbody>
           </table>
           <Paginator
-            pageChange={(page) => {
+            onPageChange={(page) => {
               this.setState({
                 page,
               })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './error-handler.scss'
 
-type ErrorHandlerProps = {
+export interface ErrorHandlerProps {
   errors: string[]
 }
 

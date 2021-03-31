@@ -22,7 +22,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = { logout }
 
-type NavBarProps = ReturnType<typeof mapStateToProps> &
+export type NavBarProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   RouteComponentProps
 

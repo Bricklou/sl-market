@@ -35,7 +35,9 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext=.ts,.tsx",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +58,12 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.1.21",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-links": "^6.1.21",
+    "@storybook/node-logger": "^6.1.21",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.1.21",
     "@tailwindcss/postcss7-compat": "^2.0.4",
     "@types/lodash": "^4.14.168",
     "@types/react-redux": "^7.1.16",
@@ -69,10 +77,13 @@
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-prettier": "^3.3.1",
     "http-proxy-middleware": "^1.0.6",
+    "husky": "^6.0.0",
     "postcss": "^7.0.35",
     "prettier": "^2.2.1",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
+    "storybook-dark-mode": "^1.0.7",
+    "storybook-preset-craco": "^0.0.4",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import './footer.scss'
 import '../../components/base/Button/button.scss'
 

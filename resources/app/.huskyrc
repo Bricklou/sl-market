@@ -1,0 +1,8 @@
+{
+  "hooks": {
+    "precommit": [
+      "pnpm run format",
+      "pnpm run lint"
+    ]
+  }
+}

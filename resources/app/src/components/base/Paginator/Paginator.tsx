@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import './paginator.scss'
 
-interface PaginatorProps {
-  pageChange: (page: number) => void
+export interface PaginatorProps {
+  onPageChange: (page: number) => void
   currentPage: number
   pageLimit: number
   totalRecords: number
@@ -13,8 +13,6 @@ interface PaginatorProps {
  * Paginator component simplify the pagination link rendering using provided backend's paginator informations.
  */
 class Paginator extends Component<PaginatorProps> {
-  private readonly totalPages = Math.ceil(this.props.totalRecords / this.props.pageLimit)
-
   private showPrevBtn(): JSX.Element | undefined {
     if (this.props.currentPage > 1) {
       return (
@@ -33,6 +31,10 @@ class Paginator extends Component<PaginatorProps> {
         </button>
       )
     }
+  }
+
+  private get totalPages(): number {
+    return Math.ceil(this.props.totalRecords / this.props.pageLimit)
   }
 
   public render(): JSX.Element {
@@ -54,7 +56,7 @@ class Paginator extends Component<PaginatorProps> {
             {pages.map((p) => {
               const classes = this.props.currentPage === p ? 'active' : ''
               return (
-                <button key={p} className={classes} onClick={() => this.props.pageChange(p)}>
+                <button key={p} className={classes} onClick={() => this.props.onPageChange(p)}>
                   {p}
                 </button>
               )

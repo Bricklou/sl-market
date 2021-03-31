@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, Component } from 'react'
 import './input.scss'
 
-type InputProps = {
+export interface InputProps {
   id: string
   type: 'text' | 'password' | 'email' | 'search'
   name: string
