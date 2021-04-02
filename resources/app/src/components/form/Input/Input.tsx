@@ -19,7 +19,7 @@ class Input extends Component<InputProps> {
   private showIcon(): JSX.Element | undefined {
     if (this.props.icon) {
       return (
-        <span className="icon">
+        <span className="icon" data-testid="input-icon">
           <i className={`fas fa-${this.props.icon}`} />
         </span>
       )

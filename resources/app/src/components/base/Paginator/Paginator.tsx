@@ -16,7 +16,7 @@ class Paginator extends Component<PaginatorProps> {
   private showPrevBtn(): JSX.Element | undefined {
     if (this.props.currentPage > 1) {
       return (
-        <button>
+        <button data-testid="previous-button">
           <i className="fas fa-chevron-left"></i>
         </button>
       )
@@ -26,7 +26,7 @@ class Paginator extends Component<PaginatorProps> {
   private showNextBtn(): JSX.Element | undefined {
     if (this.props.currentPage < this.totalPages) {
       return (
-        <button>
+        <button data-testid="next-button">
           <i className="fas fa-chevron-right"></i>
         </button>
       )
@@ -51,12 +51,17 @@ class Paginator extends Component<PaginatorProps> {
     if (pages.length > 1) {
       return (
         <div className="pagination-container">
-          <div className="pagination">
+          <div className="pagination" data-testid="paginator">
             {this.showPrevBtn()}
             {pages.map((p) => {
               const classes = this.props.currentPage === p ? 'active' : ''
               return (
-                <button key={p} className={classes} onClick={() => this.props.onPageChange(p)}>
+                <button
+                  key={p}
+                  className={classes}
+                  onClick={() => this.props.onPageChange(p)}
+                  data-testid="page-button"
+                >
                   {p}
                 </button>
               )

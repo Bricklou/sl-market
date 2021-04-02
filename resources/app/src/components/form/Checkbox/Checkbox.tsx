@@ -6,7 +6,7 @@ export interface CheckboxProps {
   label: string
   checked?: boolean
   className?: string
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  onChange: ChangeEventHandler<HTMLInputElement>
   disabled?: boolean
 }
 

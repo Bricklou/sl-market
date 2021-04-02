@@ -24,7 +24,7 @@ export default class DeleteModal extends Component<DeleteModalProps> {
     return (
       <Modal
         title={`Supprimer le compte de ${this.props.user.username} ?`}
-        showCloseBtn={true}
+        closeBtn={true}
         isOpen={this.props.isOpen}
         onClose={() => this.props.onClose(ModalResponses.CANCELED)}
         className="delete-modal"
@@ -44,6 +44,7 @@ export default class DeleteModal extends Component<DeleteModalProps> {
                 className="delete-btn"
                 loading={this.props.loading}
                 onClick={() => this.props.onClose(ModalResponses.DELETE)}
+                data-testid="delete-button"
               >
                 Supprimer
               </Button>

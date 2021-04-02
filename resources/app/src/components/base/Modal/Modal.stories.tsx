@@ -42,5 +42,5 @@ WithCloseBtn.args = {
   title: 'Title',
   icon: 'fas fa-user',
   isOpen: true,
-  showCloseBtn: true,
+  closeBtn: true,
 }

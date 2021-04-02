@@ -33,6 +33,7 @@
     "build": "craco build",
     "build:prod": "cross-env NODE_ENV=production craco build",
     "test": "craco test",
+    "coverage": "craco test --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext=.ts,.tsx",
     "format": "prettier --write .",

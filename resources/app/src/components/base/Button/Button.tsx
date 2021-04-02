@@ -19,14 +19,12 @@ export type ButtonProps = {
 class Button extends Component<ButtonProps> {
   private showIcon(): JSX.Element | undefined {
     if (this.props.icon) {
-      return <i className={this.props.icon} />
+      return <i className={this.props.icon} data-testid="icon" />
     }
   }
 
   private showLoading(): JSX.Element | undefined {
-    if (this.props.loading) {
-      return <i className="loading-icon fas fa-circle-notch"></i>
-    }
+    return <i className="loading-icon fas fa-circle-notch" data-testid="loading-icon"></i>
   }
 
   public render(): JSX.Element {

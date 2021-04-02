@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './error-handler.scss'
 
 export interface ErrorHandlerProps {
-  errors: string[]
+  errors?: string[]
 }
 
 /**
@@ -14,7 +14,7 @@ class ErrorHandler extends Component<ErrorHandlerProps> {
     if (this.props.errors) {
       return this.props.errors.map((item, index) => {
         return (
-          <span className="error-msg" key={index}>
+          <span className="error-msg" key={index} data-testid="error-msg">
             {item}
           </span>
         )
@@ -24,7 +24,10 @@ class ErrorHandler extends Component<ErrorHandlerProps> {
 
   public render(): JSX.Element {
     return (
-      <div className={this.props.errors ? 'error' : ''}>
+      <div
+        className={this.props.errors && this.props.errors.length ? 'error' : ''}
+        data-testid="error-handler"
+      >
         {this.props.children}
         {this.showErrors()}
       </div>

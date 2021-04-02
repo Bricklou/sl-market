@@ -8,5 +8,28 @@
       "name": "App",
       "path": "."
     }
-  ]
+  ],
+  "settings": {
+    "jest.coverageFormatter": "GutterFormatter",
+    "jest.enableCodeLens": true,
+    "jest.pathToJest": "npm test --",
+    "jest.showCoverageOnLoad": true,
+    "jest.disabledWorkspaceFolders": ["App"]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "name": "vscode-jest-tests",
+        "request": "launch",
+        "args": ["test", "--runInBand"],
+        "cwd": "${workspaceFolder:Frontend}",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "program": "${workspaceFolder:Frontend}/node_modules/@craco/craco/bin/craco"
+      }
+    ]
+  }
 }

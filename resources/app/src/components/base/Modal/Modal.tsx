@@ -3,7 +3,7 @@ import './modal.scss'
 
 export interface ModalProps {
   isOpen: boolean
-  showCloseBtn?: boolean
+  closeBtn?: boolean
   title: string
   onClose: (result?: boolean) => void
   children: {
@@ -45,17 +45,21 @@ class Modal extends Component<ModalProps, {}> {
     if (this.props.icon) {
       return (
         <span className="icon-container">
-          <i className={this.props.icon}></i>
+          <i className={this.props.icon} data-testid="modal-icon"></i>
         </span>
       )
     }
   }
 
   private showCloseButton(): JSX.Element | undefined {
-    if (this.props.showCloseBtn) {
+    if (this.props.closeBtn) {
       return (
         <div className="close-container">
-          <button className="close-btn" onClick={() => this.props.onClose()}>
+          <button
+            className="close-btn"
+            onClick={() => this.props.onClose()}
+            data-testid="close-button"
+          >
             <i className="fas fa-times"></i>
           </button>
         </div>
@@ -66,8 +70,8 @@ class Modal extends Component<ModalProps, {}> {
   public render(): JSX.Element | null {
     if (this.props.isOpen) {
       return (
-        <div className="modal-overlay" ref={this.overlayRef}>
-          <div className={`modal ${this.props.className || ''}`}>
+        <div className="modal-overlay" ref={this.overlayRef} data-testid="modal-overlay">
+          <div className={`modal ${this.props.className || ''}`} role="dialog">
             {this.showCloseButton()}
             <div className="modal-container">
               <div className="content">

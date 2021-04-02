@@ -11,6 +11,16 @@ module.exports = {
       plugins: [require('tailwindcss'), require('autoprefixer')],
     },
   },
+  jest: {
+    configure: {
+      collectCoverageFrom: [
+        '**/*.{js,jsx,ts,tsx}',
+        '!**/*.stories.{js,jsx,ts,tsx}',
+        '!**/node_modules/**',
+        '!**/vendor/**',
+      ],
+    },
+  },
 
   webpack: {
     configure: (webpackConfig, { paths }) => {
