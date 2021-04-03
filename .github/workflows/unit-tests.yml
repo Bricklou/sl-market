@@ -1,0 +1,75 @@
+name: Unit tests
+
+# Run this workflow every time a new commit pushed to the repository
+on:
+  push:
+  pull_request:
+
+jobs:
+  # Set the jobs key. The key is displayed as the job name
+  # when a job name is not provided
+  test_frontend:
+    # Name the job
+    name: Unit tests (frontend)
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14]
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Setup NodeJS
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Configure caching
+      - name: Cache .pnpm-store
+        uses: actions/cache@v1
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      # Install PNPM
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      # Install dependancies
+      - name: pnpm install
+        run: pnpm install --prefix resources/app
+
+      # Run tests
+      - name: Run tests (frontend)
+        run: pnpm run coverage --prefix resources/app
+        continue-on-error: true
+      # Check coverages
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: Unit (Frontend)
+          parallel: true
+          path-to-lcov: resources/app/coverage/lcov.info
+          base-path: resources/app
+
+
+  finish:
+    needs:
+      - test_frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      # Send a webhook when the build is finished.
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
+      - name: Check results
+        run: echo ${{ coveralls-api-result }}

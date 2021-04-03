@@ -19,6 +19,7 @@ module.exports = {
         '!**/node_modules/**',
         '!**/vendor/**',
       ],
+      coverageReporters: ['lcov'],
     },
   },
 
