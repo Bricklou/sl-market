@@ -3,14 +3,15 @@ import { format } from 'date-fns'
 import fr from 'date-fns/locale/fr'
 import { UserInfo } from '../../../../../store/modules/user'
 import Checkbox from '../../../../../components/form/Checkbox/Checkbox'
+import './role-item.scss'
 
-interface UserItemProps {
+export interface RoleItemProps {
   user: UserInfo
   canChange?: boolean
   onChange: (key: 'admin' | 'seller', value: boolean) => void
 }
 
-export default class UserItem extends Component<UserItemProps> {
+export default class UserItem extends Component<RoleItemProps> {
   // Fetch the user avatar
   private get userAvatar(): string {
     if (this.props.user) {

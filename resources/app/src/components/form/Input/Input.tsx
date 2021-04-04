@@ -1,7 +1,7 @@
-import React, { ChangeEventHandler, Component } from 'react'
+import { ChangeEventHandler, Component } from 'react'
 import './input.scss'
 
-type InputProps = {
+export interface InputProps {
   id: string
   type: 'text' | 'password' | 'email' | 'search'
   name: string
@@ -19,7 +19,7 @@ class Input extends Component<InputProps> {
   private showIcon(): JSX.Element | undefined {
     if (this.props.icon) {
       return (
-        <span className="icon">
+        <span className="icon" data-testid="input-icon">
           <i className={`fas fa-${this.props.icon}`} />
         </span>
       )

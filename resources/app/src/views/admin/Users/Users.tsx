@@ -152,7 +152,7 @@ class Users extends Component<UserProps, UsersState> {
             <tbody>{this.showUserList()}</tbody>
           </table>
           <Paginator
-            pageChange={(page) => {
+            onPageChange={(page) => {
               this.setState({
                 page,
               })

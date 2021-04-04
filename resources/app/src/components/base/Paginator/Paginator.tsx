@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import './paginator.scss'
 
-interface PaginatorProps {
-  pageChange: (page: number) => void
+export interface PaginatorProps {
+  onPageChange: (page: number) => void
   currentPage: number
   pageLimit: number
   totalRecords: number
@@ -13,12 +13,10 @@ interface PaginatorProps {
  * Paginator component simplify the pagination link rendering using provided backend's paginator informations.
  */
 class Paginator extends Component<PaginatorProps> {
-  private readonly totalPages = Math.ceil(this.props.totalRecords / this.props.pageLimit)
-
   private showPrevBtn(): JSX.Element | undefined {
     if (this.props.currentPage > 1) {
       return (
-        <button>
+        <button data-testid="previous-button">
           <i className="fas fa-chevron-left"></i>
         </button>
       )
@@ -28,11 +26,15 @@ class Paginator extends Component<PaginatorProps> {
   private showNextBtn(): JSX.Element | undefined {
     if (this.props.currentPage < this.totalPages) {
       return (
-        <button>
+        <button data-testid="next-button">
           <i className="fas fa-chevron-right"></i>
         </button>
       )
     }
+  }
+
+  private get totalPages(): number {
+    return Math.ceil(this.props.totalRecords / this.props.pageLimit)
   }
 
   public render(): JSX.Element {
@@ -49,12 +51,17 @@ class Paginator extends Component<PaginatorProps> {
     if (pages.length > 1) {
       return (
         <div className="pagination-container">
-          <div className="pagination">
+          <div className="pagination" data-testid="paginator">
             {this.showPrevBtn()}
             {pages.map((p) => {
               const classes = this.props.currentPage === p ? 'active' : ''
               return (
-                <button key={p} className={classes} onClick={() => this.props.pageChange(p)}>
+                <button
+                  key={p}
+                  className={classes}
+                  onClick={() => this.props.onPageChange(p)}
+                  data-testid="page-button"
+                >
                   {p}
                 </button>
               )

@@ -1,12 +1,12 @@
-import React, { ChangeEventHandler, Component } from 'react'
+import { ChangeEventHandler, Component } from 'react'
 import './checkbox.scss'
 
-type CheckboxProps = {
+export interface CheckboxProps {
   id: string
   label: string
   checked?: boolean
   className?: string
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  onChange: ChangeEventHandler<HTMLInputElement>
   disabled?: boolean
 }
 

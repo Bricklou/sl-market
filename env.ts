@@ -21,7 +21,7 @@ export default Env.rules({
   APP_NAME: Env.schema.string(),
   CACHE_VIEWS: Env.schema.boolean(),
   SESSION_DRIVER: Env.schema.string(),
-  NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+  NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
 
   // Discord information for authentication
   DISCORD_ID: Env.schema.string(),

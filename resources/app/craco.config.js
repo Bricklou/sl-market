@@ -11,6 +11,26 @@ module.exports = {
       plugins: [require('tailwindcss'), require('autoprefixer')],
     },
   },
+  jest: {
+    configure: {
+      collectCoverageFrom: [
+        '!**/*',
+        './src/components/**/*.{js,jsx,ts,tsx}',
+        '!**/*.stories.{js,jsx,ts,tsx}',
+        '!**/node_modules/**',
+        '!**/vendor/**',
+      ],
+      coverageReporters: ['lcov', 'text'],
+      coverageThreshold: {
+        global: {
+          branches: 80,
+          functions: 80,
+          lines: 80,
+          statements: 80,
+        },
+      },
+    },
+  },
 
   webpack: {
     configure: (webpackConfig, { paths }) => {

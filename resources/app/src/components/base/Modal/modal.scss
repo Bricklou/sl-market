@@ -1,5 +1,43 @@
-.modal-container {
+.modal-overlay {
   @apply fixed w-full h-full flex top-0 left-0 z-50 justify-center items-center bg-black bg-opacity-75;
+
+  .modal {
+    @apply shadow-lg rounded-2xl bg-white w-2/3 m-auto p-4 max-w-lg relative;
+
+    .close-container {
+      @apply absolute right-0 top-0 mr-4 mt-4;
+      .close-btn {
+        @apply rounded-full transition-colors duration-100 ease-in px-3 py-1 text-center text-gray-700;
+
+        &:hover {
+          @apply bg-gray-300;
+        }
+      }
+    }
+
+    .modal-container {
+      @apply h-full w-full text-center;
+
+      .content {
+        @apply flex h-full flex-col justify-between;
+
+        .icon-container {
+          @apply mt-4 w-12 text-5xl h-14 m-auto text-indigo-500 text-center;
+        }
+
+        .title {
+          @apply text-gray-800 text-xl mt-4 font-bold;
+        }
+
+        main {
+          @apply text-gray-600 text-xs py-2 px-6;
+        }
+        footer {
+          @apply flex items-center justify-between gap-4 w-full mt-8;
+        }
+      }
+    }
+  }
 
   /*  .modal {
     @apply bg-white rounded-2xl p-4 shadow-lg flex flex-col max-w-xl w-3/5;
