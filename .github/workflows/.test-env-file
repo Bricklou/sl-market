@@ -2,7 +2,7 @@ DB_CONNECTION=sqlite
 CACHE_VIEWS=true
 SESSION_DRIVER=cookie
 HOST=0.0.0.0
-NODE_ENV=testing
+NODE_ENV=test
 
 
 # Useless for tests but required by AdonisJS
