@@ -9,13 +9,7 @@
       "path": "."
     }
   ],
-  "settings": {
-    "jest.coverageFormatter": "GutterFormatter",
-    "jest.enableCodeLens": true,
-    "jest.pathToJest": "npm test --",
-    "jest.showCoverageOnLoad": true,
-    "jest.disabledWorkspaceFolders": ["App"]
-  },
+  "settings": {},
   "launch": {
     "version": "0.2.0",
     "configurations": [
@@ -31,5 +25,8 @@
         "program": "${workspaceFolder:Frontend}/node_modules/@craco/craco/bin/craco"
       }
     ]
+  },
+  "extensions": {
+    "recommendations": ["ryanluker.vscode-coverage-gutters"]
   }
 }

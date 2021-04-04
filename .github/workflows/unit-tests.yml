@@ -58,10 +58,94 @@ jobs:
           path-to-lcov: resources/app/coverage/lcov.info
           base-path: resources/app
 
+  test_backend:
+    # Name the job
+    name: Unit tests (backend)
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    env:
+      APP_KEY: ${{ secrets.APP_KEY }}
+      DISCORD_ID: ${{ secrets.DISCORD_ID }}
+      DISCORD_SECRET: ${{ secrets.DISCORD_SECRET }}
+      DISCORD_REDIRECT_URI: ${{ secrets.DISCORD_REDIRECT_URI }}
+      # Next vars are only there because they are required by AdonisJS
+      DB_CONNECTION: sqlite
+      CACHE_VIEWS: true
+      SESSION_DRIVER: cookie
+      HOST: 0.0.0.0
+      NODE_ENV: testing
+      MYSQL_HOST: localhost
+      MYSQL_PORT: 3306
+      MYSQL_USER: lucid
+      MYSQL_PASSWORD: ''
+      MYSQL_DB_NAME: lucid
+      PG_HOST: localhost
+      PG_PORT: 5432
+      PG_USER: lucid
+      PG_PASSWORD: ''
+      PG_DB_NAME: lucid
+      ORACLE_HOST: localhost
+      ORACLE_PORT: 1521
+      ORACLE_USER: lucid
+      ORACLE_PASSWORD: ''
+      ORACLE_DB_NAME: lucid
+      MSSQL_SERVER: localhost
+      MSSQL_PORT: 1433
+      MSSQL_USER: lucid
+      MSSQL_PASSWORD: ''
+      MSSQL_DB_NAME: lucid
+
+    strategy:
+      matrix:
+        node-version: [14]
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Setup NodeJS
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Configure caching
+      - name: Cache .pnpm-store
+        uses: actions/cache@v1
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      # Install PNPM
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      # Install dependancies
+      - name: pnpm install
+        run: pnpm install
+
+      - name: create `tmp/` folder for DB
+        run: mkdir tmp/
+
+      # Run tests
+      - name: Run tests (backend)
+        run: pnpm run coverage
+        continue-on-error: true
+      # Check coverages
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: Unit (backend)
+          parallel: true
+          path-to-lcov: coverage/lcov.info
 
   finish:
     needs:
       - test_frontend
+      - test_backend
     runs-on: ubuntu-latest
 
     steps:
@@ -71,5 +155,3 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           parallel-finished: true
-      - name: Check results
-        run: echo ${{ coveralls-api-result }}

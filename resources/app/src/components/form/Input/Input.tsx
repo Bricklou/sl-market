@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, Component } from 'react'
+import { ChangeEventHandler, Component } from 'react'
 import './input.scss'
 
 export interface InputProps {
