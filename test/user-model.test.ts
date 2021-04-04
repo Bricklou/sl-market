@@ -27,8 +27,27 @@ test.group('User model', (group) => {
   test("Shouldn't have permisions", async (assert) => {
     const u = await User.find(USER_ID)
 
+    assert.exists(u)
+
     const perms = await u!.getPermissions()
     assert.isEmpty(perms)
+  })
+
+  test('Should have a seller profile', async (assert) => {
+    const u = await User.find(USER_ID)
+
+    assert.exists(u)
+
+    await u!.related('sellerProfile').create({
+      userId: USER_ID,
+      bio: 'biography',
+      status: 'available',
+    })
+    await u!.save()
+
+    await u!.preload('sellerProfile')
+
+    assert.exists(u!.sellerProfile)
   })
 
   group.afterEach(async () => {
