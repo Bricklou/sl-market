@@ -2,12 +2,12 @@
   "extends": "@istanbuljs/nyc-config-typescript",
   "all": true,
   "check-coverage": true,
-  "exclude": [
-    "node_modules",
-    "resources/app",
-    "public",
-    "*.test.*",
-    "coverage"
+  "include": [
+    "app",
+    "commands",
+    "providers",
+    "start",
+    "models"
   ],
   "extension": [
     ".ts"

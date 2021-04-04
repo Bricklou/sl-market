@@ -88,7 +88,7 @@ export default class User extends BaseModel {
     const u = this as User
 
     await u.preload('roles', async (query) => {
-      await query.where('slug', roleSlug + '4')
+      await query.where('slug', roleSlug)
     })
 
     return u.roles.length > 1

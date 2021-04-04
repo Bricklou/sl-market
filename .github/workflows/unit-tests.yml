@@ -46,7 +46,6 @@ jobs:
       # Run tests
       - name: Run tests (frontend)
         run: pnpm run coverage --prefix resources/app
-        continue-on-error: true
         env:
           NODE_ENV: test
       # Check coverages
@@ -133,7 +132,6 @@ jobs:
       # Run tests
       - name: Run tests (backend)
         run: pnpm run coverage
-        continue-on-error: true
         env:
           NODE_ENV: test
       # Check coverages

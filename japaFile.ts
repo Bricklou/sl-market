@@ -12,7 +12,7 @@ import { configure } from 'japa'
 import sourceMapSupport from 'source-map-support'
 import execa from 'execa'
 
-process.env.NODE_ENV = 'testing'
+process.env.NODE_ENV = 'test'
 process.env.ADONIS_ACE_CWD = join(__dirname)
 sourceMapSupport.install({ handleUncaughtExceptions: false })
 
@@ -31,6 +31,12 @@ async function runMigrations(): Promise<void> {
   })
 }
 
+async function seedDB(): Promise<void> {
+  await execa.node('ace', ['db:seed'], {
+    stdio: 'inherit',
+  })
+}
+
 async function rollbackMigrations(): Promise<void> {
   await execa.node('ace', ['migration:rollback'], {
     stdio: 'inherit',
@@ -42,6 +48,6 @@ async function rollbackMigrations(): Promise<void> {
  */
 configure({
   files: ['test/**/*.test.ts'],
-  before: [setupPort, runMigrations, startHttpServer],
+  before: [setupPort, runMigrations, seedDB, startHttpServer],
   after: [rollbackMigrations],
 })
