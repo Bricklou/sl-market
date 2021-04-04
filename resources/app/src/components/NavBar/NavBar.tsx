@@ -104,7 +104,7 @@ class NavBar extends Component<NavBarProps> {
       return (
         <div className="navbar-dropdown">
           <span>
-            <img className="avatar" src={this.userAvatar} alt="" />
+            <img className="avatar" src={this.userAvatar} alt="" data-testid="user-avatar" />
             {this.props.user!.username}
             <i className="fas fa-caret-down"></i>
           </span>
@@ -112,7 +112,9 @@ class NavBar extends Component<NavBarProps> {
           <ul className="dropdown">
             {this.showSellerLinks()}
             <li>
-              <button onClick={this.logout.bind(this)}>Déconnexion</button>
+              <button onClick={this.logout.bind(this)} data-testid="logout-btn">
+                Déconnexion
+              </button>
             </li>
           </ul>
         </div>

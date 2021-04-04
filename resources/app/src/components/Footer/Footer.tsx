@@ -8,7 +8,7 @@ import '../../components/base/Button/button.scss'
 export default class Footer extends Component {
   public render(): JSX.Element {
     return (
-      <footer id="footer">
+      <footer id="footer" data-testid="footer">
         <section className="footer-content">
           <article>
             <p className="column-title">Politique du site</p>
