@@ -12,7 +12,7 @@ export default class Seller {
     next: () => Promise<void>
   ): Promise<void> {
     if (auth.isAuthenticated && auth.user!.hasRole('seller')) {
-      return next()
+      return await next()
     }
     return response.unauthorized()
   }

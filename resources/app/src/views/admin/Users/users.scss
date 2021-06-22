@@ -38,7 +38,7 @@
       @apply inline-block min-w-full shadow rounded-lg overflow-hidden;
 
       table {
-        @apply bg-white;
+        @apply bg-white min-w-full leading-normal;
 
         th {
           @apply px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal;

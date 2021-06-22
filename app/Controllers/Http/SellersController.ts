@@ -38,7 +38,7 @@ export default class SellersController {
         status: schema.enum(['available', 'unavailable', 'vacation'] as const),
       }),
     })
-    await auth.user!.preload('sellerProfile')
+    await auth.user!.load('sellerProfile')
 
     if (auth.user!.sellerProfile) {
       const profile = auth.user!.sellerProfile
@@ -48,6 +48,33 @@ export default class SellersController {
       return response.ok({
         status: profile.status,
       })
+    }
+    return response.forbidden()
+  }
+
+  /**
+   * Update seller description
+   * @apram {string} bio The biography of the seller
+   */
+  public async updateSellerBiography({
+    request,
+    response,
+    auth,
+  }: HttpContextContract): Promise<void> {
+    const data = await request.validate({
+      schema: schema.create({
+        content: schema.string(),
+      }),
+    })
+
+    await auth.user!.load('sellerProfile')
+
+    if (auth.user!.sellerProfile) {
+      const profile = auth.user!.sellerProfile
+      profile.bio = data.content
+      profile.save()
+
+      return response.ok('')
     }
     return response.forbidden()
   }

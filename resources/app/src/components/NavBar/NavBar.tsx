@@ -48,16 +48,6 @@ class NavBar extends Component<NavBarProps> {
   }
 
   /**
-   * Get the current user avatar url
-   */
-  private get userAvatar(): string {
-    if (this.props.user) {
-      return `https://cdn.discordapp.com/avatars/${this.props.user.id}/${this.props.user.avatar}.png`
-    }
-    return ''
-  }
-
-  /**
    * If the user is authenticated and have permissions to access the seller panel, then render sellers links.
    */
   private showSellerLinks(): JSX.Element[] | undefined {
@@ -104,7 +94,12 @@ class NavBar extends Component<NavBarProps> {
       return (
         <div className="navbar-dropdown">
           <span>
-            <img className="avatar" src={this.userAvatar} alt="" data-testid="user-avatar" />
+            <img
+              className="avatar"
+              src={this.props.user!.avatar}
+              alt=""
+              data-testid="user-avatar"
+            />
             {this.props.user!.username}
             <i className="fas fa-caret-down"></i>
           </span>
@@ -121,7 +116,7 @@ class NavBar extends Component<NavBarProps> {
       )
     } else {
       return (
-        <a href={process.env.REACT_APP_DISCORD_OAUTH2_LINK} className="discord-btn button">
+        <a href="/api/auth/redirect" className="discord-btn button">
           <i className="fab fa-discord"></i>
           Authentification
         </a>

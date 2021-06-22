@@ -45,7 +45,7 @@ test.group('User model', (group) => {
     })
     await u!.save()
 
-    await u!.preload('sellerProfile')
+    await u!.load('sellerProfile')
 
     assert.exists(u!.sellerProfile)
   })

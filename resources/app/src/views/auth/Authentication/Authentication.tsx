@@ -41,9 +41,10 @@ class Authentication extends Component<
   public async componentDidMount(): Promise<void> {
     const queries = new URLSearchParams(this.props.location.search)
     const code = queries.get('code')
-    if (code) {
+    const state = queries.get('state')
+    if (code && state) {
       try {
-        const response = await auth.loginWithToken(code)
+        const response = await auth.loginWithToken(code, state)
         this.props.login(response.data)
         this.props.history.push(queries.get('to') || '/')
       } catch (error) {

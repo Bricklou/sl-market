@@ -66,9 +66,9 @@ jobs:
 
     env:
       APP_KEY: ${{ secrets.APP_KEY }}
-      DISCORD_ID: ${{ secrets.DISCORD_ID }}
-      DISCORD_SECRET: ${{ secrets.DISCORD_SECRET }}
-      DISCORD_REDIRECT_URI: ${{ secrets.DISCORD_REDIRECT_URI }}
+      DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+      DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+      DISCORD_REDIRECT_URI: "http://localhost:3000/authentication"
       # Next vars are only there because they are required by AdonisJS
       DB_CONNECTION: sqlite
       CACHE_VIEWS: true

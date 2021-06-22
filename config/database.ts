@@ -6,11 +6,10 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { OrmConfig } from '@ioc:Adonis/Lucid/Orm'
 import Application from '@ioc:Adonis/Core/Application'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
 
-const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
+const databaseConfig: DatabaseConfig = {
   /*
   |--------------------------------------------------------------------------
   | Connection
@@ -21,7 +20,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
   | file.
   |
   */
-  connection: Env.get('DB_CONNECTION'),
+  connection: Env.get('DB_CONNECTION', 'sqlite'),
 
   connections: {
     /*
@@ -39,6 +38,9 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
       client: 'sqlite',
       connection: {
         filename: Application.tmpPath('db.sqlite3'),
+      },
+      migrations: {
+        naturalSort: true,
       },
       useNullAsDefault: true,
       healthCheck: false,
@@ -65,6 +67,9 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
         password: Env.get('MYSQL_PASSWORD', ''),
         database: Env.get('MYSQL_DB_NAME'),
       },
+      migrations: {
+        naturalSort: true,
+      },
       healthCheck: false,
       debug: false,
     },
@@ -88,6 +93,9 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
         user: Env.get('PG_USER'),
         password: Env.get('PG_PASSWORD', ''),
         database: Env.get('PG_DB_NAME'),
+      },
+      migrations: {
+        naturalSort: true,
       },
       healthCheck: false,
       debug: false,
@@ -113,6 +121,9 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
         password: Env.get('ORACLE_PASSWORD', ''),
         database: Env.get('ORACLE_DB_NAME'),
       },
+      migrations: {
+        naturalSort: true,
+      },
       healthCheck: false,
       debug: false,
     },
@@ -125,7 +136,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
     | Configuration for MSSQL database. Make sure to install the driver
     | from npm when using this connection
     |
-    | npm i mssql
+    | npm i tedious
     |
     */
     mssql: {
@@ -137,24 +148,13 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
         password: Env.get('MSSQL_PASSWORD', ''),
         database: Env.get('MSSQL_DB_NAME'),
       },
+      migrations: {
+        naturalSort: true,
+      },
       healthCheck: false,
       debug: false,
     },
   },
-
-  /*
-  |--------------------------------------------------------------------------
-  | ORM Configuration
-  |--------------------------------------------------------------------------
-  |
-  | Following are some of the configuration options to tweak the conventional
-  | settings of the ORM. For example:
-  |
-  | - Define a custom function to compute the default table name for a given model.
-  | - Or define a custom function to compute the primary key for a given model.
-  |
-  */
-  orm: {},
 }
 
 export default databaseConfig

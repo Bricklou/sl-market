@@ -9,5 +9,6 @@ Route.group(() => {
    */
   Route.group(() => {
     Route.put('/status', 'SellersController.updateSellerStatus')
+    Route.put('/biography', 'SellersController.updateSellerBiography')
   }).middleware(['auth', 'seller'])
 }).prefix('seller')

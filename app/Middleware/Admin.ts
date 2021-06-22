@@ -12,7 +12,7 @@ export default class Admin {
     next: () => Promise<void>
   ): Promise<void> {
     if (auth.isAuthenticated && auth.user!.hasRole('admin')) {
-      return next()
+      return await next()
     }
     return response.unauthorized()
   }

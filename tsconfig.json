@@ -18,7 +18,8 @@
       "@adonisjs/session",
       "@adonisjs/view",
       "@adonisjs/auth",
-      "@adonisjs/lucid"
+      "@adonisjs/lucid",
+      "@adonisjs/ally"
     ]
   }
 }

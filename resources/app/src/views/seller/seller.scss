@@ -76,7 +76,7 @@
       }
     }
   }
-  .content {
+  & > .content {
     @apply flex-1 p-8;
   }
 }
