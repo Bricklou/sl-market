@@ -5,6 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.1.1",
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "@uiw/react-markdown-preview": "^3.1.1",
     "@uiw/react-md-editor": "^3.3.7",
     "axios": "^0.21.1",
     "date-fns": "^2.22.1",
@@ -20,6 +21,13 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "remark-emoji": "^2.2.0",
+    "remark-external-links": "^8.0.0",
+    "remark-heading-id": "^1.0.0",
+    "remark-hint": "^1.0.10",
+    "remark-strip-badges": "^5.0.0",
+    "remark-toc": "^7.2.0",
+    "remark-twemoji": "^0.1.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
@@ -51,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@fec/remark-a11y-emoji": "^3.1.0",
     "@tailwindcss/postcss7-compat": "npm:@tailwindcss/postcss7-compat@^2.0.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -74,6 +83,7 @@
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
+    "twemoji": "^13.1.0",
     "typescript": "^4.3.4"
   }
 }

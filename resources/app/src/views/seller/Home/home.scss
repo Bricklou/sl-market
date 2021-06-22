@@ -18,4 +18,70 @@
       @apply grid-cols-3 max-w-6xl mx-auto;
     }
   }
+
+  .bio-card {
+    @apply bg-gradient-to-br from-purple-500 to-indigo-500 rounded-lg shadow p-4 text-white m-2 flex flex-row;
+
+    .icon {
+      @apply inline mr-2 top-0 text-lg;
+    }
+
+    .seller-bio {
+      @apply flex w-full;
+
+      .editor-container {
+        @apply w-full m-2;
+
+        .action-buttons {
+          @apply justify-end block text-right mt-2;
+
+          button {
+            @apply w-auto mx-1;
+          }
+
+          .cancel-button {
+            @apply bg-gray-200 text-gray-600;
+          }
+        }
+      }
+
+      .bio-container {
+        @apply w-full;
+
+        a {
+          @apply text-yellow-300;
+
+          &:hover {
+            @apply no-underline;
+          }
+        }
+      }
+    }
+
+    .edit-btn {
+      @apply right-0 text-white;
+
+      button {
+        @apply text-white;
+
+        &:hover {
+          @apply text-gray-200;
+        }
+
+        &:focus {
+          @apply outline-none;
+        }
+      }
+    }
+  }
+
+  .seller-bio {
+    .bio-toggle-btn {
+      @apply bg-blue-500 text-white font-bold py-2 px-4 border-b-4 border-blue-700 rounded;
+
+      &:hover {
+        @apply bg-blue-400 border-blue-500;
+      }
+    }
+  }
 }

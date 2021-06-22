@@ -4,4 +4,12 @@
   main {
     @apply flex-1;
   }
+
+  .w-md-editor-toolbar {
+    @apply py-0 px-2;
+
+    ul {
+      @apply h-auto;
+    }
+  }
 }
