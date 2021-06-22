@@ -1,23 +1,17 @@
+import { AllyUserContract, DiscordToken } from '@ioc:Adonis/Addons/Ally'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { schema } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
-import Env from '@ioc:Adonis/Core/Env'
-import DiscordOAuth2 from 'discord-oauth2'
 import { DateTime } from 'luxon'
 
 /**
  * Auth controller will contain all controllers related to the authentication.
  */
 export default class AuthController {
-  private oauth!: DiscordOAuth2
-
-  // When the class is initilized, we setup the OAuth2 for the user auth
-  constructor() {
-    this.oauth = new DiscordOAuth2({
-      clientId: Env.get('DISCORD_ID'),
-      clientSecret: Env.get('DISCORD_SECRET'),
-      redirectUri: Env.get('DISCORD_REDIRECT_URI'),
-    })
+  /**
+   * Redirect route for frontend
+   */
+  public async redirect({ ally }: HttpContextContract): Promise<void> {
+    return ally.use('discord').redirect()
   }
 
   /**
@@ -25,36 +19,41 @@ export default class AuthController {
    * If the user exists, just login it and update his last login info.
    * Otherwise, create a new user.
    *
-   * @param {string} core
+   * @param {string} code
    */
-  public async loginWithToken({ auth, request, response }: HttpContextContract): Promise<void> {
-    const data = await request.validate({
-      schema: schema.create({
-        code: schema.string({
-          escape: true,
-          trim: true,
-        }),
-      }),
-      cacheKey: request.url(),
-    })
+  public async loginWithToken({
+    auth,
+    ally,
+    response,
+    logger,
+  }: HttpContextContract): Promise<void> {
+    const discord = ally.use('discord')
 
-    let accessToken: string
-
-    try {
-      const response = await this.oauth.tokenRequest({
-        grantType: 'authorization_code',
-        code: data.code,
-        scope: ['identify', 'email'],
-      })
-
-      accessToken = response.access_token
-    } catch (error) {
-      return response.badRequest('Bad token')
+    /**
+     * User has explicitly denied the login request
+     */
+    if (discord.accessDenied()) {
+      return response.abort('')
     }
 
-    let discordUser
+    /**
+     * Unable to verify the CSRF state
+     */
+    if (discord.stateMisMatch()) {
+      return response.badRequest()
+    }
+
+    /**
+     * There was an unknown error during the redirect
+     */
+    if (discord.hasError()) {
+      logger.error('Error:' + discord.getError())
+      return response.internalServerError()
+    }
+
+    let discordUser: AllyUserContract<DiscordToken>
     try {
-      discordUser = await this.oauth.getUser(accessToken)
+      discordUser = await discord.user()
     } catch (error) {
       return response.badRequest('Discord user not valid')
     }
@@ -62,25 +61,25 @@ export default class AuthController {
     try {
       const user = await User.firstOrCreate(
         {
-          id: discordUser.id.toString(),
+          id: discordUser.id,
         },
         {
-          id: discordUser.id.toString(),
+          id: discordUser.id,
           lastLogin: DateTime.now(),
-          username: discordUser.username,
-          avatar: discordUser.avatar,
-          email: discordUser.email,
+          username: discordUser.nickName || '',
+          avatar: discordUser.avatarUrl || '',
+          email: discordUser.email || '',
         }
       )
-      user.id = discordUser.id.toString()
+      user.id = discordUser.id
       await user.save()
 
       // Auth the user and update all his informations from the Discord account
-      await auth.loginViaId(user.id.toString())
+      await auth.loginViaId(user.id)
       auth.user!.lastLogin = DateTime.now()
-      auth.user!.username = discordUser.username
-      auth.user!.avatar = discordUser.avatar
-      auth.user!.email = discordUser.email
+      auth.user!.username = discordUser.nickName
+      auth.user!.avatar = discordUser.avatarUrl || ''
+      auth.user!.email = discordUser.email || ''
       await auth.user!.save()
     } catch (error) {
       console.error(error)
@@ -114,8 +113,8 @@ export default class AuthController {
     try {
       await auth.authenticate()
       if (auth.user) {
-        await auth.user.preload('roles', async (query) => {
-          await query.preload('permissions')
+        await auth.user.load('roles', async (role) => {
+          await role.preload('permissions')
         })
 
         return response.json({
@@ -135,8 +134,8 @@ export default class AuthController {
    */
   public async get({ auth, response }: HttpContextContract): Promise<void> {
     if (auth.user) {
-      await auth.user.preload('roles', async (query) => {
-        await query.preload('permissions')
+      await auth.user.load('roles', async (role) => {
+        await role.preload('permissions')
       })
 
       return response.json({

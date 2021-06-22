@@ -34,19 +34,6 @@ type AppRouterProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToP
  */
 class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
   /**
-   * Silent auth guard will refresh the user every time the methods is called.
-   */
-  private silentAuth: GuardFunction = async (to, from, next) => {
-    try {
-      const response = await auth.refresh()
-      this.props.login(response.data)
-    } catch (error) {
-      this.props.logout()
-    }
-    next()
-  }
-
-  /**
    * Guest guard will prevent authenticated user to access the route
    */
   private requireGuest: GuardFunction = async (to, from, next) => {
@@ -60,7 +47,9 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
   /**
    * Admin guard will prevent non-administrator to access the route
    */
-  private requireAdmin: GuardFunction = (to, from, next) => {
+  private requireAdmin: GuardFunction = async (to, from, next) => {
+    const response = await auth.refresh()
+    this.props.login(response.data)
     if (this.props.user && Acl.can(this.props.user, ['access:adminPanel'])) {
       next()
     } else {
@@ -71,7 +60,9 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
   /**
    * Seller guard will prevent all non-seller users
    */
-  private requireSeller: GuardFunction = (to, from, next) => {
+  private requireSeller: GuardFunction = async (to, from, next) => {
+    const response = await auth.refresh()
+    this.props.login(response.data)
     if (this.props.user && Acl.can(this.props.user, ['access:sellerPanel'])) {
       next()
     } else {
@@ -94,7 +85,7 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
 
   public render(): JSX.Element {
     return (
-      <GuardProvider guards={[this.silentAuth]} loading={LoadingView}>
+      <GuardProvider loading={LoadingView}>
         <Switch>
           {/* Base routes */}
           <Route exact path="/" component={Home} />

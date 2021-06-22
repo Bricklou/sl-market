@@ -1,5 +1,5 @@
 /**
- * Contract source: https://git.io/JvyKD
+ * Contract source: https://git.io/JOdz5
  *
  * Feel free to let us know via PR, if you find something broken in this
  * file.
@@ -45,11 +45,10 @@ declare module '@ioc:Adonis/Addons/Auth' {
   |--------------------------------------------------------------------------
   |
   | The guards are used for authenticating users using different drivers.
-  | The auth module comes with 4 different guards.
+  | The auth module comes with 3 different guards.
   |
   | - SessionGuardContract
   | - BasicAuthGuardContract
-  | - JwtGuardContract
   | - OATGuardContract ( Opaque access token )
   |
   | Every guard needs a provider for looking up users from the database.

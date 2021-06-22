@@ -2,3 +2,5 @@ build
 resources/app
 public
 **/*.md
+coverage
+.nyc_output/

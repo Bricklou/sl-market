@@ -12,14 +12,6 @@ export interface RoleItemProps {
 }
 
 export default class UserItem extends Component<RoleItemProps> {
-  // Fetch the user avatar
-  private get userAvatar(): string {
-    if (this.props.user) {
-      return `https://cdn.discordapp.com/avatars/${this.props.user.id}/${this.props.user.avatar}.png`
-    }
-    return ''
-  }
-
   private formatDate(date: string): string {
     return format(new Date(date), 'P', {
       locale: fr,
@@ -39,7 +31,7 @@ export default class UserItem extends Component<RoleItemProps> {
       <tr className="user-item">
         <td className="user-profile">
           <div className="avatar-container">
-            <img alt="profil" src={this.userAvatar} />
+            <img alt="profil" src={this.props.user.avatar} />
           </div>
           <p className="username">{this.props.user.username}</p>
         </td>

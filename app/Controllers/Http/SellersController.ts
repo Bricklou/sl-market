@@ -38,7 +38,7 @@ export default class SellersController {
         status: schema.enum(['available', 'unavailable', 'vacation'] as const),
       }),
     })
-    await auth.user!.preload('sellerProfile')
+    await auth.user!.load('sellerProfile')
 
     if (auth.user!.sellerProfile) {
       const profile = auth.user!.sellerProfile

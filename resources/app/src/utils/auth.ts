@@ -29,9 +29,15 @@ class Auth {
   /**
    * Login the user with the discord provided token
    */
-  public static async loginWithToken(code: string): Promise<AxiosResponse<UserInfo>> {
-    return await api.post<UserInfo>('/auth', {
-      code,
+  public static async loginWithToken(
+    code: string,
+    state: string
+  ): Promise<AxiosResponse<UserInfo>> {
+    return await api.post<UserInfo>('/auth/callback', null, {
+      params: {
+        code,
+        state,
+      },
     })
   }
 }

@@ -139,7 +139,7 @@ class Users extends Component<UserProps, UsersState> {
     if (this.state.meta) {
       return (
         <div className="table">
-          <table className="min-w-full leading-normal">
+          <table>
             <thead>
               <tr>
                 <th>Utilisateur</th>

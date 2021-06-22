@@ -86,7 +86,7 @@ class Seller extends Component<RouteComponentProps, SellerState> {
           <li>
             <button onClick={() => void this.setStatus('vacation')}>
               <span className="status-indicator status-vacation"></span>
-              <p>En vacance</p>
+              <p>En vacances</p>
             </button>
           </li>
         </ul>

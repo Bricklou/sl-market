@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import User from 'App/Models/User'
 import Roles from 'App/Models/Role'
 
 /**
@@ -18,17 +18,17 @@ export default class AdminsController {
   public async stats({ response }: HttpContextContract): Promise<void> {
     try {
       // Fetch users count
-      const usersCount = await User.query().count('id', 'c').first()
+      const usersCount = await User.query().count('*', 'total').first()
       // Fetch seller count (all users with a role having the slug `seller`)
       const sellersCount = await User.query()
         .whereHas('roles', (query) => query.where('slug', 'seller'))
-        .count('id', 'c')
+        .count('*', 'total')
         .first()
 
       return response.json({
         counts: {
-          users: usersCount.c,
-          sellers: sellersCount.c,
+          users: usersCount ? usersCount.$extras.total : -1,
+          sellers: sellersCount ? sellersCount.$extras.total : -1,
           commands: 0,
         },
       })
@@ -52,8 +52,8 @@ export default class AdminsController {
     try {
       // Fetch users for search (all users where username or email is like the search text)
       const users = await User.query()
-        .preload('roles', (query) => {
-          return query.select('name', 'slug')
+        .preload('roles', (role) => {
+          role.select('name', 'slug')
         })
         .where('username', 'like', `%${search}%`)
         .orWhere('email', 'like', `%${search}%`)
@@ -165,7 +165,7 @@ export default class AdminsController {
 
         // If the role is `seller`, add a seller profile
         if (role.slug === 'seller') {
-          await user.preload('sellerProfile')
+          await user.load('sellerProfile')
 
           if (!user.sellerProfile) {
             const profile = await user.related('sellerProfile').create({
@@ -179,7 +179,7 @@ export default class AdminsController {
 
         // If the role is `seller`, delete the user's seller profile
         if (role.slug === 'seller') {
-          await user.preload('sellerProfile')
+          await user.load('sellerProfile')
 
           if (user.sellerProfile) {
             await user.sellerProfile.delete()

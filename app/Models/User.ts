@@ -68,8 +68,8 @@ export default class User extends BaseModel {
 
   public async getPermissions(): Promise<Permission[]> {
     const u = this as User
-    await u.preload('roles', async (query) => {
-      await query.preload('permissions')
+    await u.load('roles', async (role) => {
+      await role.preload('permissions')
     })
 
     const perms: Permission[] = uniq(flatten(u.roles.map((role) => role.toJSON().permissions)))
@@ -85,12 +85,14 @@ export default class User extends BaseModel {
    * If `true` then the user has the role
    */
   public async hasRole(roleSlug: string): Promise<boolean> {
-    const u = this as User
+    const u = await User.query()
+      .sideload(this)
+      .preload('roles')
+      .withCount('roles', (role) => {
+        role.where('slug', roleSlug)
+      })
+      .first()
 
-    await u.preload('roles', async (query) => {
-      await query.where('slug', roleSlug)
-    })
-
-    return u.roles.length > 1
+    return u?.$extras.role_count >= 1
   }
 }

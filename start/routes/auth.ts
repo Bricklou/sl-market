@@ -3,8 +3,8 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
   // Guest routes
   Route.group(() => {
-    Route.post('/', 'AuthController.loginWithToken')
-    Route.post('/register', 'AuthController.register')
+    Route.get('/redirect', 'AuthController.redirect')
+    Route.post('/callback', 'AuthController.loginWithToken')
   }).middleware('guest')
 
   Route.put('/', 'AuthController.refresh')

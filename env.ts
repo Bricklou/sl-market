@@ -24,8 +24,8 @@ export default Env.rules({
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
 
   // Discord information for authentication
-  DISCORD_ID: Env.schema.string(),
-  DISCORD_SECRET: Env.schema.string(),
+  DISCORD_CLIENT_ID: Env.schema.string(),
+  DISCORD_CLIENT_SECRET: Env.schema.string(),
   DISCORD_REDIRECT_URI: Env.schema.string(),
 
   /**
