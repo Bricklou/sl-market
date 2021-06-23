@@ -8,11 +8,9 @@ import { RootState } from '../store'
 import { login, logout, UserInfo } from '../store/modules/user'
 
 import LoadingView from '../views/base/loading_view/LoadingView'
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Acl from '../utils/Acl'
-import Admin from '../views/admin/Admin'
-import Seller from '../views/seller/Seller'
 import { CombinedState } from 'redux'
 
 /**
@@ -91,10 +89,23 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
           <Route exact path="/" component={Home} />
 
           {/* Admin routes */}
-          <GuardedRoute path="/administration" component={Admin} guards={[this.requireAdmin]} />
+          <GuardedRoute
+            path="/administration"
+            component={React.lazy(
+              async () => await import(/* webpackChunkName: "admin" */ '../views/admin/Admin')
+            )}
+            guards={[this.requireAdmin]}
+          />
 
           {/* Seller routes */}
-          <GuardedRoute path="/mes-services" component={Seller} guards={[this.requireSeller]} />
+          <GuardedRoute
+            path="/mes-services"
+            component={React.lazy(
+              async () =>
+                await import(/* webpackChunkName: "my-services" */ '../views/seller/Seller')
+            )}
+            guards={[this.requireSeller]}
+          />
 
           {/* Auth routes */}
           <GuardedRoute

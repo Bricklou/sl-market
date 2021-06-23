@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { UserInfo } from '../../../../../store/modules/user'
-import { format } from 'date-fns'
+import format from 'date-fns/format'
 import fr from 'date-fns/locale/fr'
 import './user-item.scss'
 

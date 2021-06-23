@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { format } from 'date-fns'
+import format from 'date-fns/format'
 import fr from 'date-fns/locale/fr'
 import { UserInfo } from '../../../../../store/modules/user'
 import Checkbox from '../../../../../components/form/Checkbox/Checkbox'
