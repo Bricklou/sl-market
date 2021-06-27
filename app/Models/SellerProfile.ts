@@ -24,4 +24,10 @@ export default class SellerProfile extends BaseModel {
    */
   @column()
   public bio: string
+
+  /**
+   * Stripe account ID for Stripe Connect
+   */
+  @column()
+  public stripeAccountId?: string
 }

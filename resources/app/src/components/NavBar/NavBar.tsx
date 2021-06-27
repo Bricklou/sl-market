@@ -107,6 +107,9 @@ class NavBar extends Component<NavBarProps> {
           <ul className="dropdown">
             {this.showSellerLinks()}
             <li>
+              <Link to="/profil">Mon profil</Link>
+            </li>
+            <li>
               <button onClick={this.logout.bind(this)} data-testid="logout-btn">
                 Déconnexion
               </button>

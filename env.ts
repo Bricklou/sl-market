@@ -62,4 +62,10 @@ export default Env.rules({
   ORACLE_USER: Env.schema.string(),
   ORACLE_PASSWORD: Env.schema.string.optional(),
   ORACLE_DB_NAME: Env.schema.string(),
+
+  // Stripe configuration
+  STRIPE_SECRET_KEY: Env.schema.string(),
+  STRIPE_API_VERSION: Env.schema.string(),
+  STRIPE_REFRESH_URL: Env.schema.string(),
+  STRIPE_RETURN_URL: Env.schema.string(),
 })

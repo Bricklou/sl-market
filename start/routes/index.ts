@@ -26,6 +26,7 @@ Route.any('/:any?', 'ViewsController.app').where('any', '^(?!api).*$')
 // This routes group is used to contains all api request for the app's frontend.
 Route.group(() => {
   require('./auth')
+  require('./user')
   require('./admin')
   require('./seller')
 }).prefix('/api')

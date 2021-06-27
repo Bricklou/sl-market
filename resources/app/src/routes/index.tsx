@@ -43,6 +43,19 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
   }
 
   /**
+   * Auth guard will prevent guest user to access the route
+   */
+  private requireAuth: GuardFunction = async (to, from, next) => {
+    const response = await auth.refresh()
+    this.props.login(response.data)
+    if (this.props.isAuthenticated) {
+      next()
+    } else {
+      next.redirect('/')
+    }
+  }
+
+  /**
    * Admin guard will prevent non-administrator to access the route
    */
   private requireAdmin: GuardFunction = async (to, from, next) => {
@@ -105,6 +118,16 @@ class AppRouter extends Component<AppRouterProps & RouteComponentProps> {
                 await import(/* webpackChunkName: "my-services" */ '../views/seller/Seller')
             )}
             guards={[this.requireSeller]}
+          />
+
+          {/* Profile route */}
+          <GuardedRoute
+            path="/profil"
+            component={React.lazy(
+              async () =>
+                await import(/* webpackChunkName: "profil" */ '../views/auth/Profile/Profile')
+            )}
+            guards={[this.requireAuth]}
           />
 
           {/* Auth routes */}

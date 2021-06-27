@@ -5,6 +5,7 @@ import './seller.scss'
 import SellerHome from './Home/Home'
 import NotFound from '../base/not_found/NotFound'
 import api from '../../utils/api'
+import MyServices from './MyServices/MyServices'
 
 interface SellerState {
   dropOpened: boolean
@@ -151,6 +152,7 @@ class Seller extends Component<RouteComponentProps, SellerState> {
         <div className="content">
           <Switch>
             <Route exact path={path} component={SellerHome} />
+            <Route exact path={`${path}/services`} component={MyServices} />
             <Route component={NotFound} />
           </Switch>
         </div>

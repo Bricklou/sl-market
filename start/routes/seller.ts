@@ -10,5 +10,9 @@ Route.group(() => {
   Route.group(() => {
     Route.put('/status', 'SellersController.updateSellerStatus')
     Route.put('/biography', 'SellersController.updateSellerBiography')
+
+    Route.get('/link-stripe', 'SellersController.linkStripe')
+    Route.get('/unlink-stripe', 'SellersController.unlinkStripe')
+    Route.get('/stripe-callback', 'SellersController.stripeCallback')
   }).middleware(['auth', 'seller'])
 }).prefix('seller')

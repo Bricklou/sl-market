@@ -9,6 +9,7 @@ export default class SellerProfiles extends BaseSchema {
       table.string('user_id', 24).references('users.id').onDelete('cascade')
       table.enum('status', ['available', 'unavailable', 'vacation'])
       table.string('bio')
+      table.string('stripe_account_id').nullable().unique()
     })
   }
 

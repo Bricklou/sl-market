@@ -1,0 +1,34 @@
+#profile {
+  @apply p-6;
+
+  header {
+    @apply flex flex-row mb-5 justify-between w-full;
+
+    .title {
+      @apply text-2xl leading-tight;
+    }
+  }
+
+  section {
+    @apply mx-4 text-gray-800 mb-5;
+
+    .title {
+      @apply text-blue-500 uppercase font-bold mb-2;
+    }
+  }
+
+  .option {
+    @apply mb-2 mx-5;
+  }
+
+  .stripe-connect,
+  .stripe-disconnect {
+    @apply w-auto mt-2 inline-block;
+
+    background-color: #635bff;
+
+    img {
+      @apply inline-block;
+    }
+  }
+}
