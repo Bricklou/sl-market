@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import './home.scss'
 import api from '@/utils/api'
 import MDEditor, { commands } from '@uiw/react-md-editor'
@@ -33,7 +33,8 @@ class SellerHome extends Component<{}, SellerHomeState> {
       const response = await api.get<ApiStatusResponse>('/seller/status')
 
       this.setState({
-        bio: response.data.bio,
+        bio: response.data.bio || '',
+        bioEdited: response.data.bio || '',
       })
     } catch (error) {
       console.log(error)
@@ -44,7 +45,7 @@ class SellerHome extends Component<{}, SellerHomeState> {
     return (
       <div className="editor-container">
         <MDEditor
-          value={this.state.bio || ''}
+          value={this.state.bioEdited}
           onChange={(val) => this.setState({ bioEdited: val })}
           minHeight={200}
           commands={[
@@ -83,8 +84,8 @@ class SellerHome extends Component<{}, SellerHomeState> {
             className="cancel-button"
             onClick={() => {
               this.setState({
-                bioEdited: undefined,
                 editOpened: false,
+                bioEdited: this.state.bio,
               })
             }}
           >
@@ -93,7 +94,7 @@ class SellerHome extends Component<{}, SellerHomeState> {
           <Button
             icon="fas fa-save"
             type="submit"
-            onClick={this.saveDescription.bind(this)}
+            onClick={() => this.saveDescription.bind(this)(this.state.bioEdited || '')}
             className="save-button"
           >
             Enregistrer
@@ -103,15 +104,14 @@ class SellerHome extends Component<{}, SellerHomeState> {
     )
   }
 
-  private async saveDescription(): Promise<void> {
-    if (this.state.bioEdited !== undefined) {
+  private async saveDescription(newBio: string): Promise<void> {
+    if (newBio !== undefined) {
       try {
         await api.put('/seller/biography', {
-          content: this.state.bioEdited,
+          content: newBio,
         })
         this.setState({
-          bioEdited: undefined,
-          bio: this.state.bioEdited,
+          bio: newBio,
           editOpened: false,
         })
       } catch (error) {

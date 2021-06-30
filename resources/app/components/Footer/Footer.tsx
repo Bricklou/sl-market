@@ -1,7 +1,5 @@
 import { Component } from 'react'
 import './footer.scss'
-//import '@c/base/Button/button.scss'
-//import '@c/'
 
 /**
  * Footer component
