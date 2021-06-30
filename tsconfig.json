@@ -1,16 +1,30 @@
 {
   "extends": "./node_modules/adonis-preset-ts/tsconfig",
-  "include": ["**/*"],
-  "exclude": ["node_modules", "build", "resources/app"],
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "resources/app"
+  ],
   "compilerOptions": {
     "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
     "paths": {
-      "App/*": ["./app/*"],
-      "Config/*": ["./config/*"],
-      "Contracts/*": ["./contracts/*"],
-      "Database/*": ["./database/*"]
+      "App/*": [
+        "./app/*"
+      ],
+      "Config/*": [
+        "./config/*"
+      ],
+      "Contracts/*": [
+        "./contracts/*"
+      ],
+      "Database/*": [
+        "./database/*"
+      ]
     },
     "types": [
       "@adonisjs/core",
@@ -19,7 +33,8 @@
       "@adonisjs/view",
       "@adonisjs/auth",
       "@adonisjs/lucid",
-      "@adonisjs/ally"
+      "@adonisjs/ally",
+      "@adonisjs/bouncer"
     ]
   }
 }

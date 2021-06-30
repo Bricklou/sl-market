@@ -1,0 +1,37 @@
+#my-services {
+  header {
+    @apply flex flex-row mb-1 justify-between w-full;
+
+    @screen sm {
+      @apply mb-0;
+    }
+
+    .title {
+      @apply text-2xl leading-tight;
+    }
+
+    .search-button {
+      @apply w-36 bg-indigo-500;
+
+      &:hover {
+        @apply bg-indigo-400;
+      }
+    }
+
+    .add-service {
+      @apply w-auto text-center px-3;
+
+      i {
+        @apply m-0 p-0;
+      }
+    }
+
+    .form-container {
+      @apply items-end;
+
+      form {
+        @apply flex w-full space-x-3;
+      }
+    }
+  }
+}

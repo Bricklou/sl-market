@@ -1,0 +1,13 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "http://localhost:8080/assets/vendors-node_modules_pnpm_axios_0_21_1_node_modules_axios_index_js-node_modules_pnpm_lodash_4-8d89f8.js",
+        "http://localhost:8080/assets/app.js"
+      ],
+      "css": [
+        "http://localhost:8080/assets/app.css"
+      ]
+    }
+  }
+}

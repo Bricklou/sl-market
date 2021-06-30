@@ -5,6 +5,7 @@ import Permission from './Permission'
 import { flatten, uniq } from 'lodash'
 import SellerProfile from './SellerProfile'
 
+export type RoleType = 'admin' | 'seller'
 export default class User extends BaseModel {
   /**
    * User ID
@@ -84,7 +85,7 @@ export default class User extends BaseModel {
    * Return a promise containing a boolean.
    * If `true` then the user has the role
    */
-  public async hasRole(roleSlug: string): Promise<boolean> {
+  public async hasRole(roleSlug: RoleType): Promise<boolean> {
     const u = await User.query()
       .sideload(this)
       .preload('roles')
@@ -93,6 +94,6 @@ export default class User extends BaseModel {
       })
       .first()
 
-    return u?.$extras.role_count >= 1
+    return u?.$extras.roles_count >= 1
   }
 }
