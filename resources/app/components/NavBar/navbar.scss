@@ -35,11 +35,11 @@
 
       a,
       button {
-        @apply ml-3 py-1 uppercase border-b-4 border-transparent transition-colors duration-75;
+        @apply ml-3 py-1 uppercase transition-colors duration-75 rounded-lg p-2;
 
         &:hover,
         &.active {
-          @apply border-white;
+          @apply bg-white bg-opacity-25;
         }
       }
 
@@ -47,16 +47,14 @@
         @extend .button;
 
         @apply w-auto #{!important};
-        @apply ml-3 w-auto mb-2 uppercase border-none py-2;
+        @apply ml-3 w-auto mb-2 uppercase py-2;
       }
     }
 
     .navbar-dropdown {
-      @apply relative ml-3 py-1 uppercase border-b-4 border-transparent cursor-pointer;
+      @apply relative ml-3 py-1 uppercase cursor-pointer;
 
       span {
-        @apply border-none;
-
         &:focus {
           @apply outline-none;
         }
@@ -81,7 +79,7 @@
 
           a,
           button {
-            @apply m-0 border-none leading-6 inline-block;
+            @apply m-0 leading-6 inline-block;
           }
         }
       }

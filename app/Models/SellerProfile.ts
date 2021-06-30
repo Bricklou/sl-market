@@ -4,13 +4,15 @@ export default class SellerProfile extends BaseModel {
   /**
    * Profile ID
    */
-  @column({ isPrimary: true })
+  @column({ isPrimary: true, serializeAs: null })
   public id: number
 
   /**
    * ID of the user owning the profile
    */
-  @column()
+  @column({
+    serializeAs: null,
+  })
   public userId: string
 
   /**
@@ -28,6 +30,15 @@ export default class SellerProfile extends BaseModel {
   /**
    * Stripe account ID for Stripe Connect
    */
-  @column()
+  @column({
+    serializeAs: 'stripeLinked',
+    serialize: (val) => {
+      return typeof val === 'string' && val.length > 1
+    },
+  })
   public stripeAccountId?: string
+
+  public get isStripeLinked(): boolean {
+    return typeof this.stripeAccountId === 'string' && this.stripeAccountId.length > 1
+  }
 }

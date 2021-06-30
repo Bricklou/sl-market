@@ -116,13 +116,22 @@ export default class AuthController {
         await auth.user.load('roles', async (role) => {
           await role.preload('permissions')
         })
+        await auth.user.load('sellerProfile')
+
+        let perms = (await auth.user.getPermissions()).map((perm) => perm.slug).sort()
+
+        if (auth.user.sellerProfile !== null && !auth.user.sellerProfile.isStripeLinked) {
+          perms = perms.filter((e) => {
+            return ['access:sellerPanel'].indexOf(e) < 0
+          })
+        }
 
         return response.json({
           id: auth.user.id,
           username: auth.user.username,
           email: auth.user.email,
           avatar: auth.user.avatar,
-          permissions: (await auth.user.getPermissions()).map((perm) => perm.slug).sort(),
+          permissions: perms,
         })
       }
     } catch (_) {}

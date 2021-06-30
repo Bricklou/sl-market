@@ -14,6 +14,8 @@ interface SellerState {
 
 interface ApiStatusResponse {
   status: 'available' | 'unavailable' | 'vacation'
+  bio: string
+  stripeLinked: boolean
 }
 
 /**

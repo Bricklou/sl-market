@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Stripe from '@ioc:Adonis/Addons/Stripe'
 
 export default class UsersController {
   public async getProfile({ response, auth }: HttpContextContract): Promise<void> {
@@ -11,7 +12,17 @@ export default class UsersController {
       const sellerProfile = await auth.user!.related('sellerProfile').query().first()
       json.isSeller = true
 
-      json.isStripeLinked = sellerProfile !== null && sellerProfile.stripeAccountId !== undefined
+      if (sellerProfile && sellerProfile.isStripeLinked) {
+        try {
+          await Stripe.accounts.retrieve(sellerProfile.stripeAccountId!)
+          json.isStripeLinked = true
+        } catch (error) {
+          sellerProfile.stripeAccountId = undefined
+          await sellerProfile.save()
+        }
+      } else {
+        json.isStripeLinked = false
+      }
     } else {
       console.log('is not a seller')
     }

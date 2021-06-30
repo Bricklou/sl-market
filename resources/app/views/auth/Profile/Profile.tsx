@@ -70,7 +70,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
               profil:
             </p>
             {this.state.seller.isStripeLinked ? (
-              <Button onClick={this.logoutStripe} className="stripe-disconnect">
+              <Button onClick={this.logoutStripe.bind(this)} className="stripe-disconnect">
                 {'Déconnecter '}
                 <img src={StripeLogo} alt="Logo" />
               </Button>

@@ -169,11 +169,11 @@ export default class SellersController {
 
       if (id) {
         await SellerProfile.query().sideload(auth.user!.sellerProfile).update({
-          stripeAcountId: null,
+          stripe_account_id: null,
         })
         await Stripe.accounts.del(id)
 
-        return response.ok('')
+        return response.ok({})
       } else {
         return response.badRequest()
       }
