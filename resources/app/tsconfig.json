@@ -13,8 +13,17 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "typeRoots": ["./typings"],
+    "types": ["@types/node"],
+    "baseUrl": "./",
+    "rootDir": "./",
+    "sourceMap": true,
+    "paths": {
+      "@/*": ["*"],
+      "@c/*": ["components/*"],
+      "@v/*": ["views/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["**/*"]
 }
